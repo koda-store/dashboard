@@ -1,16 +1,16 @@
 import React from "react";
 import Sidebar from "../components/ui/SideBar";
 
-function Orders() {
+function Carts() {
   return (
     <div className="flex">
       <Sidebar />
 
       <div className="flex-1 p-8">
-        <h1 className="text-3xl font-bold">Orders</h1>
+        <h1 className="text-3xl font-bold">Carts</h1>
       </div>
     </div>
   );
 }
 
-export default Orders
+export default Carts

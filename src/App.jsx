@@ -6,7 +6,10 @@ import "react-toastify/dist/ReactToastify.css";
 import Login from "../src/pages/Login";
 import Orders from "../src/pages/Orders";
 import Customers from "../src/pages/Customers";
+import Carts from "../src/pages/Carts";
 import Settings from "../src/pages/Settings";
+import Products from "../src/pages/Products";
+import AddProduct from "./pages/AddProduct";
 import NotFound from "../src/pages/NotFound";
 import Home from "./pages/Home";
 
@@ -19,7 +22,10 @@ function App() {
   
           <Route path="/" element={<Home />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/Carts" element={<Carts />} />
           <Route path="/customers" element={<Customers />} />
+          <Route path="/Products" element={<Products />} />
+          <Route path="/AddProduct" element={<AddProduct />} />
           <Route path="/settings" element={<Settings />} />
 
         <Route path="*" element={<NotFound />} />
