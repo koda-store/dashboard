@@ -6,7 +6,7 @@ function Orders() {
     <div className="flex">
       <Sidebar />
 
-      <div className="flex-1 p-8">
+      <div className="flex-1 p-8 pt-20 md:pt-8">
         <h1 className="text-3xl font-bold">Orders</h1>
       </div>
     </div>
