@@ -1,131 +1,167 @@
-import React from "react";
-import {Home, Users, Package, Plus, FileText, ShoppingCart, Settings,} from "lucide-react";
+import React, { useState } from "react";
+import { Home, Users, Package, Plus, FileText, ShoppingCart, Settings, Menu, X,
+} from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 const SideBar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <aside className="h-screen w-64 bg-white border-r border-gray-200 flex flex-col justify-between">
-      {/* Top Section */}
-      <div className="p-6">
-        <h2 className="text-xs tracking-widest text-teal-500 font-semibold mb-1">
-          COMMERCE
-        </h2>
+    <>
+      {/* زر الموبايل */}
+      {!isOpen && (
+        <button
+            onClick={() => setIsOpen(true)}
+            className="md:hidden fixed top-5 left-5 z-50 bg-white p-2 rounded-lg shadow"
+        >
+            <Menu size={24} />
+        </button>
+        )}
 
-        <h1 className="text-3xl font-semibold text-gray-900 mb-8">
-          Admin Panel
-        </h1>
+      <aside
+        className={`fixed md:static top-0 left-0 h-screen w-64 bg-white border-r border-gray-200 flex flex-col justify-between z-40 transform transition-transform duration-300
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        md:translate-x-0`}
+      >
+        {/* Top Section */}
+        <div className="p-6">
+          <div className="flex justify-between items-center mb-4">
+            <div>
+              <h2 className="text-xs tracking-widest text-teal-500 font-semibold mb-1">
+                COMMERCE
+              </h2>
+              <h1 className="text-3xl font-semibold text-gray-900">
+                Admin Panel
+              </h1>
+            </div>
 
-        <nav className="space-y-2">
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${
-                isActive
-                  ? "bg-gray-900 text-white"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`
-            }
-          >
-            <Home size={18} />
-            Dashboard
-          </NavLink>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="md:hidden"
+            >
+              <X size={24} />
+            </button>
+          </div>
 
-          <NavLink
-            to="/Customers"
-            className={({ isActive }) =>
+          <nav className="space-y-2">
+            <NavLink
+              to="/"
+              onClick={() => setIsOpen(false)}
+              className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${
-                isActive
+                  isActive
                     ? "bg-gray-900 text-white"
                     : "text-gray-700 hover:bg-gray-100"
                 }`
-            }
+              }
             >
-            <Users size={18} />
-            Users
+              <Home size={18} />
+              Dashboard
             </NavLink>
 
-          <NavLink
-            to="/Products"
-            className={({ isActive }) =>
+            <NavLink
+              to="/customers"
+              onClick={() => setIsOpen(false)}
+              className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${
-                isActive
+                  isActive
                     ? "bg-gray-900 text-white"
                     : "text-gray-700 hover:bg-gray-100"
                 }`
-            }
+              }
             >
-            <Package size={18} />
-            Products
-          </NavLink>
+              <Users size={18} />
+              Users
+            </NavLink>
 
-          <NavLink
-            to="/AddProduct"
-            className={({ isActive }) =>
+            <NavLink
+              to="/products"
+              onClick={() => setIsOpen(false)}
+              className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${
-                isActive
+                  isActive
                     ? "bg-gray-900 text-white"
                     : "text-gray-700 hover:bg-gray-100"
                 }`
-            }
+              }
             >
-            <Plus size={18} />
-            Add Product
-          </NavLink>
+              <Package size={18} />
+              Products
+            </NavLink>
 
-          <NavLink
-            to="/Orders"
-            className={({ isActive }) =>
+            <NavLink
+              to="/AddProduct"
+              onClick={() => setIsOpen(false)}
+              className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${
-                isActive
+                  isActive
                     ? "bg-gray-900 text-white"
                     : "text-gray-700 hover:bg-gray-100"
                 }`
-            }
+              }
             >
-            <FileText size={18} />
-            Orders
-          </NavLink>
+              <Plus size={18} />
+              Add Product
+            </NavLink>
 
-          <NavLink
-            to="/Carts"
-            className={({ isActive }) =>
+            <NavLink
+              to="/orders"
+              onClick={() => setIsOpen(false)}
+              className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${
-                isActive
+                  isActive
                     ? "bg-gray-900 text-white"
                     : "text-gray-700 hover:bg-gray-100"
                 }`
-            }
+              }
             >
-            <Settings size={18} />
-            Carts
-          </NavLink>
+              <FileText size={18} />
+              Orders
+            </NavLink>
 
-          <NavLink
-            to="/Settings"
-            className={({ isActive }) =>
+            <NavLink
+              to="/Carts"
+              onClick={() => setIsOpen(false)}
+              className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${
-                isActive
+                  isActive
                     ? "bg-gray-900 text-white"
                     : "text-gray-700 hover:bg-gray-100"
                 }`
-            }
+              }
             >
-            <Settings size={18} />
-            Settings
-          </NavLink>
-        </nav>
-      </div>
+              <ShoppingCart size={18} />
+              Carts
+            </NavLink>
 
-      {/* Bottom Live Box */}
-      <div className="p-6 pb-8">
-        <div className="bg-gradient-to-r from-teal-400 to-blue-500 text-white rounded-xl p-5">
-          <p className="text-xs uppercase tracking-wider mb-2">LIVE</p>
-          <p className="text-lg font-semibold">
-            Connected to the E-commerce API
-          </p>
+            <NavLink
+              to="/settings"
+              onClick={() => setIsOpen(false)}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${
+                  isActive
+                    ? "bg-gray-900 text-white"
+                    : "text-gray-700 hover:bg-gray-100"
+                }`
+              }
+            >
+              <Settings size={18} />
+              Settings
+            </NavLink>
+          </nav>
         </div>
-      </div>
-    </aside>
+
+        {/* Bottom */}
+        <div className="p-6 pb-8">
+          <div className="bg-gradient-to-r from-teal-400 to-blue-500 text-white rounded-xl p-5">
+            <p className="text-xs uppercase tracking-wider mb-2">LIVE</p>
+            <p className="text-lg font-semibold">
+              Connected to the E-commerce API
+            </p>
+          </div>
+        </div>
+      </aside>
+    </>
   );
 };
 
