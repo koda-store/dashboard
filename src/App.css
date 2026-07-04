@@ -182,3 +182,192 @@
     border-right-color: var(--border);
   }
 }
+
+
+
+
+/* ////////////////////////////////////////////////////// */
+
+
+.navBar{
+  height: 80px;
+  right: 20px;
+  width: 80%;
+  border-bottom: 1px solid rgb(236, 236, 236);
+ /* background-color: white; */
+
+}
+
+.right_bar {
+  width: 45%;
+  height: 90%;
+  justify-content: space-around;
+
+}
+.left_bar{
+  width: 350px;
+  height: 90%;
+}
+
+.moodbtn{
+  width: 25%;
+  height: 100%;
+}
+
+.adminAccount{
+  width: 47%;
+  height: 75%;
+  background-color: rgb(247, 252, 255);
+  display: flex;
+}
+
+.notifcation{
+  width: 45px;
+  height: 45px;
+  /* margin-left: 10px; */
+  border: 1px solid rgb(233, 243, 253);
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0px 5px 5px -5px rgb(202, 202, 202) ;
+  /* text-align: center; */
+  display: flex;
+  justify-content: center;
+  align-items:  center;
+}
+.notifcation:hover{
+  box-shadow: 0px 7px 9px -5px rgb(202, 202, 202) ;
+}
+
+.not{
+  width: 10px;
+  height: 10px;
+  left: 22px;
+  top: 8px;
+}
+
+.accountName{
+  width:40px;
+  height: 40px;
+  text-align: center;
+}
+
+.imgBrand{
+  width: 150px;
+  margin-left: 20px;
+}
+.Brand{
+  margin-left: 15px;
+  padding-top: 10px;
+}
+
+.collapsmal{
+  display: none;
+}
+.logoutbtn{
+  border-radius: 10px;
+}
+.logoutIcon{
+  display: inline;
+}
+
+/* Midume screen */
+@media (min-width:761px) and (max-width: 1100px){
+  .navBar{
+  height: 90px;
+  right: 25px;
+  width: 75%;
+}
+
+  .right_bar{
+    width: 200px;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .left_bar{
+  width: 350px;
+  margin-left: 50px;
+}
+
+  .adminAccount{
+    display: none ;
+  }
+.accountName{
+  margin:0px 10px;
+}
+.logoutbtn{
+    width: 45px;
+    height: 45px;
+}
+.imgBrand{
+    width: 150px;
+  }
+  .logOut{
+    display: none;
+  }
+  .moodbtn{
+    /* margin-left: 20px; */
+    /* justify-content: space-evenly; */
+    width: auto;
+
+  }
+    .Brand{
+    display: none;
+  }
+}
+
+/* Small screen */
+@media  (min-width: 490px) and (max-width: 760px){
+  .navBar{
+  /* height: 80px; */
+  /* right: 25px; */
+  /* width: 200px; */
+  /* justify-content: flex-end; */
+
+
+}
+.left_bar{
+   width: 350px;
+  height: 90%;
+}
+
+
+  .navBar{
+    width: 100%;
+    right: 0;
+    padding: 0 10px;
+  }
+
+  .Brand{
+    display: none;
+  }
+
+  .adminAccount{
+    display: none ;
+  }
+
+  .right_bar{
+    width: auto;
+    gap: 10px;
+  }
+
+  .moodbtn{
+    width: auto;
+
+  }
+
+  .notifcation,.logoutbtn{
+    width: 45px;
+    height: 45px;
+  }
+
+  .imgBrand{
+    width: 150px;
+    margin-left: 20;
+  }
+  .logOut{
+    display: none;
+  }
+.collapsmal{
+  display: block;
+}
+}
