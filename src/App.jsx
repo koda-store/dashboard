@@ -12,6 +12,8 @@ import Products from "../src/pages/Products";
 import AddProduct from "./pages/AddProduct";
 import NotFound from "../src/pages/NotFound";
 import Home from "./pages/Home";
+// import ProtectedRoute from "./components/ui/ProtectedRoute";لو خلصت   page login فك الكومنت ده وال
+
 
 function App() {
   return (
@@ -42,3 +44,65 @@ function App() {
 }
 
 export default App;
+{/* <Route
+  path="/"
+  element={
+    <ProtectedRoute>
+      <Home />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/orders"
+  element={
+    <ProtectedRoute>
+      <Orders />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/Carts"
+  element={
+    <ProtectedRoute>
+      <Carts />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/customers"
+  element={
+    <ProtectedRoute>
+      <Customers />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/Products"
+  element={
+    <ProtectedRoute>
+      <Products />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/AddProduct"
+  element={
+    <ProtectedRoute>
+      <AddProduct />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/settings"
+  element={
+    <ProtectedRoute>
+      <Settings />
+    </ProtectedRoute>
+  }
+/> */}
