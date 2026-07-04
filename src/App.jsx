@@ -12,7 +12,7 @@ import Products from "../src/pages/Products";
 import AddProduct from "./pages/AddProduct";
 import NotFound from "../src/pages/NotFound";
 import Home from "./pages/Home";
-import NavBar from "./pages/NavBar";
+import NavBar from "./components/ui/NavBar";
 
 function App() {
   return (
