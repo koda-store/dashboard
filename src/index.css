@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 
+<<<<<<< HEAD
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -16,3 +17,5 @@
 .fade-up {
   animation: fadeUp 0.7s ease-out forwards;
 }
+=======
+>>>>>>> orders
