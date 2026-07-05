@@ -1,8 +1,8 @@
 // import 
 // import  url from '' 
 // import '.'
-import '../App.css';
-import url from '../KodaLogo2-D3eRgjLV.png';
+import '../../App.css';
+import url from '../../KodaLogo2-D3eRgjLV.png';
 import { Bell,Moon,LogOut } from "lucide-react";
 const NavBar=()=>{
     return(
