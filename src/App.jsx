@@ -13,11 +13,6 @@ import AddProduct from "./pages/AddProduct";
 import NotFound from "../src/pages/NotFound";
 import Home from "./pages/Home";
 import NavBar from "./components/ui/NavBar";
-import Overview from "./components/Dashboard/Overview";
-import StatsCards from "./components/Dashboard/StatsCards";
-import TopProducts from "./components/Dashboard/TopProducts";
-import OrderStatus from "./components/Dashboard/OrderStatus";
-import RecentOrders from "./components/Dashboard/RecentOrders";
 
 function App() {
   return (
