@@ -19,7 +19,7 @@ function StatsCards() {
 
       setDashboard(data.dashboard);
     } catch (error) {
-     setError(error.response?.data?.message || "Failed to load top products.");
+     setError(error.response?.data?.message || "Failed to load dashboard.");
 
     }
   };
@@ -110,7 +110,7 @@ const cards = [
 ////////
 if (error) {
   return (
-    <div className="bg-white rounded-2xl shadow-xl  border-red-200 p-6">
+    <div className="bg-white rounded-2xl shadow-xl border  border-red-200 p-6">
       <p className="text-red-500 text-center">{error}</p>
     </div>
   );
@@ -121,7 +121,7 @@ return (
       <StatCard key={index} {...card} />
     ))}
   </div>
-);;
+);
 }
 
 
