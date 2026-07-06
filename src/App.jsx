@@ -1,7 +1,6 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 
 import Login from "../src/pages/Login";
 import Orders from "../src/pages/Orders";
@@ -12,24 +11,27 @@ import Products from "../src/pages/Products";
 import AddProduct from "./pages/AddProduct";
 import NotFound from "../src/pages/NotFound";
 import Home from "./pages/Home";
-// import ProtectedRoute from "./components/ui/ProtectedRoute";لو خلصت   page login فك الكومنت ده وال
+import NavBar from "./components/ui/NavBar";
 
+// import ProtectedRoute from "./components/ui/ProtectedRoute"; // لو خلصت page login فك الكومنت ده
 
 function App() {
+  const location = useLocation();
+
   return (
     <>
-      <NavBar/>
+      {location.pathname !== "/login" && <NavBar />}
+
       <Routes>
         <Route path="/login" element={<Login />} />
 
-  
-          <Route path="/" element={<Home />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/Carts" element={<Carts />} />
-          <Route path="/customers" element={<Customers />} />
-          <Route path="/Products" element={<Products />} />
-          <Route path="/AddProduct" element={<AddProduct />} />
-          <Route path="/settings" element={<Settings />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/Carts" element={<Carts />} />
+        <Route path="/customers" element={<Customers />} />
+        <Route path="/Products" element={<Products />} />
+        <Route path="/AddProduct" element={<AddProduct />} />
+        <Route path="/settings" element={<Settings />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -45,7 +47,9 @@ function App() {
 }
 
 export default App;
-{/* <Route
+
+/*
+<Route
   path="/"
   element={
     <ProtectedRoute>
@@ -106,4 +110,5 @@ export default App;
       <Settings />
     </ProtectedRoute>
   }
-/> */}
+/>
+*/
