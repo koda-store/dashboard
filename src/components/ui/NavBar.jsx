@@ -4,6 +4,7 @@ import { Bell,Moon,LogOut ,Sun } from "lucide-react";
 import { Theme } from "../Context";
 import { useContext } from "react";
 
+
 const NavBar=()=>{
     const {theme,toggleTheme}=useContext(Theme)
 
