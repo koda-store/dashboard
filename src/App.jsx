@@ -15,9 +15,12 @@ import Home from "./pages/Home";
 import NavBar from "./components/ui/NavBar";
 
 function App() {
+  
   return (
     <>
+
       <NavBar/>
+      
       <Routes>
         <Route path="/login" element={<Login />} />
 

@@ -7,18 +7,14 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 import "./index.css";
-
+import ThemeContext from "./components/ui/ThemeContext.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      {/* <ThemeProvider>
-        <AuthProvider>
-          <SidebarProvider>
-            <App />
-          </SidebarProvider>
-        </AuthProvider>
-      </ThemeProvider> */}
-      <App />
+    
+      <ThemeContext>
+        <App />
+      </ThemeContext>
     </BrowserRouter>
   </StrictMode>
 );

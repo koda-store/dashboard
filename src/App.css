@@ -189,12 +189,35 @@
 /* ////////////////////////////////////////////////////// */
 
 
+:root {
+  --navbar-bg: #ffffff;
+  --text-bg:#000000;
+   --bg-card:rgb(247, 252, 255);
+   --bg-btn:#ffffff;
+   --border-color: rgb(233, 243, 253);
+   --text-secondary: #585c63;
+   --bg-shadow:rgb(202, 202, 202);
+  
+}
+
+
+body.dark{
+   --navbar-bg: #0f1729;
+   --text-bg:#ffffff;
+   --bg-card:#1a2338;
+   --bg-btn:#1a2338;
+   --border-color: #2a3550;
+   --text-secondary: #8b95a8;
+   --bg-shadow:#0f1729;
+}
+
 .navBar{
   height: 80px;
-  right: 20px;
-  width: 80%;
-  border-bottom: 1px solid rgb(236, 236, 236);
- /* background-color: white; */
+  right: 0px;
+  width: 82%;
+  border-bottom: 1px solid var(--border-color);
+ background-color: var(--navbar-bg);
+transition: background-color 0.3s ease;
 
 }
 
@@ -214,26 +237,20 @@
   height: 100%;
 }
 
-.adminAccount{
-  width: 47%;
-  height: 75%;
-  background-color: rgb(247, 252, 255);
-  display: flex;
-}
-
 .notifcation{
   width: 45px;
   height: 45px;
-  border: 1px solid rgb(233, 243, 253);
+  border: 1px solid var(--border-color);
   border-radius: 10px;
-  background-color: white;
-  box-shadow: 0px 5px 5px -5px rgb(202, 202, 202) ;
+  background-color: var(--bg-btn);
+  color: var(--text-bg);
+  box-shadow: 0px 5px 5px -5px var(--bg-shadow) ;
   display: flex;
   justify-content: center;
   align-items:  center;
 }
 .notifcation:hover{
-  box-shadow: 0px 7px 9px -5px rgb(202, 202, 202) ;
+  box-shadow: 0px 7px 9px -5px var(--bg-shadow) ;
 }
 
 .not{
@@ -243,10 +260,21 @@
   top: 8px;
 }
 
+
+.adminAccount{
+  width: 47%;
+  height: 75%;
+  background-color:var(--bg-card) ;
+  border: 1px solid var(--border-color);
+  color: var(--text-bg);
+  display: flex;
+}
 .accountName{
   width:40px;
   height: 40px;
   text-align: center;
+  
+  
 }
 
 .imgBrand{
@@ -256,6 +284,8 @@
 .Brand{
   margin-left: 15px;
   padding-top: 10px;
+  color: var(--text-bg);
+
 }
 
 .collapsmal{
@@ -268,11 +298,15 @@
   display: inline;
 }
 
+.text-sce{
+  color: var(--text-secondary);
+}
+
 /* Midume screen */
 @media (min-width:761px) and (max-width: 1100px){
   .navBar{
   height: 90px;
-  right: 25px;
+  right: 0px;
   width: 75%;
 }
 
