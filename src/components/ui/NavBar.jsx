@@ -6,8 +6,8 @@ import url from '../../KodaLogo2-D3eRgjLV.png';
 import { Bell,Moon,LogOut } from "lucide-react";
 const NavBar=()=>{
     return(
+        <div className="navBar bg-white  position-fixed d-flex  justify-content-between align-items-center  z-50 ">
             
-                <div className="navBar bg-white  position-fixed d-flex  justify-content-between align-items-center ">
 
   
                 <div className='left_bar w-35 h-90  d-flex  align-items-center d-sm-flex'>

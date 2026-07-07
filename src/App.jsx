@@ -3,6 +3,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
+import User from "./pages/User";
 import Login from "../src/pages/Login";
 import Orders from "../src/pages/Orders";
 import Customers from "../src/pages/Customers";
@@ -21,7 +22,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
 
-  
+         <Route path="/user" element={<User />} />
           <Route path="/" element={<Home />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/Carts" element={<Carts />} />
@@ -44,3 +45,17 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
