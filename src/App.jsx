@@ -9,6 +9,8 @@ import Customers from "../src/pages/Customers";
 import Settings from "../src/pages/Settings";
 import NotFound from "../src/pages/NotFound";
 import Home from "./pages/Home";
+import Loading from "./pages/Loading";
+
 
 function App() {
   return (
@@ -16,8 +18,9 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
 
-  
-          <Route path="/" element={<Home />} />
+  <Route path="/" element={<Loading />} />
+
+          <Route path="/home" element={<Home />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/settings" element={<Settings />} />
