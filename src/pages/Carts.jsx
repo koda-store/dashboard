@@ -3,7 +3,6 @@ import Sidebar from "../components/ui/SideBar";
 function Carts() {
   return (
     <div className="flex">
-      <Sidebar />
 
       <div className="flex-1 p-8 pt-20 md:pt-8 bg-[#f5f7fb] min-h-screen">
         
