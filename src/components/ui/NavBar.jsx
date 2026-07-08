@@ -1,62 +1,147 @@
-// import 
-// import  url from '' 
-// import '.'
-import '../../App.css';
-import url from '../../KodaLogo2-D3eRgjLV.png';
-import { Bell,Moon,LogOut } from "lucide-react";
-const NavBar=()=>{
-    return(
-        <div className="navBar bg-white  position-fixed d-flex  justify-content-between align-items-center  z-50 ">
-            
 
-  
-                <div className='left_bar w-35 h-90  d-flex  align-items-center d-sm-flex'>
-                    <div className='imgcotaner'>
-                        <img src={url} className='imgBrand' />
-                    </div>
-                    
-                    <div className='Brand'>
-                        <p className=' fw-bold'>
-                            <span className='fs-5'>Koda Dashboard</span>
-                            <br/>
-                            <small className='fw-light text-xs  fs-9'>E-Commerce Admin Panel</small>
-                        </p>
-                    </div>
+import url from "../../KodaLogo2-D3eRgjLV.png";
+import { Bell, Moon, LogOut, Sun } from "lucide-react";
+import { useContext } from "react";
+import { Theme } from "../Navbar/Context";
+import { useSidebar } from "../../context/SidebarContext";
 
-                    
-                </div>
-{/* ///////////////////////////////////////////////////////////////////// */}
-                <div className='right_bar d-flex   align-items-center '>
+const NavBar = () => {
+  const { theme, toggleTheme } = useContext(Theme);
+  const { isCollapsed } = useSidebar();
 
-                    {/* <div className='moodbtn d-flex justify-content-around align-items-center'>
-                       
-                    </div> */}
-                     <button className='notifcation position-relative  '>
-                           <Bell size={20}/>
-                            <p className='not position-absolute bg-danger rounded-circle'></p>
-                        </button>
-                        <button className='notifcation  '><Moon size={20} /> </button>
+  return (
+    <div
+      className={`
+        fixed top-0 right-0 z-40
+        h-20
+        flex items-center justify-between
+        border-b border-slate-200 dark:border-slate-700
+        bg-white dark:bg-slate-900
+        shadow-sm
+        transition-all duration-300
 
-                    <div className='adminAccount  justify-content-around align-items-center rounded-4 bg-slate-50 border border-secondary-subtle'>
-                        <div className='accountName rounded-circle bg-primary '><p className='text-white  pt-2'>AA</p></div>
-                        <div className='rightside pt-3'>
-                            <p className='fw-bold fs-8 pr-2'>
-                                Admin Account
-                                <br/>
-                                <span className='fw-light mt-2'>admin</span>
-                            </p>
-                            
-                            
-                        </div>
-                    </div>
+        w-full
+       ${
+  isCollapsed
+    ? "md:w-[calc(100%-76px)] lg:w-[calc(100%-76px)]"
+    : "md:w-[calc(100%-248px)] lg:w-[calc(100%-248px)]"
+}`}
+    >
+      {/* Left */}
+      <div className="flex items-center h-full w-auto md:w-[350px] lg:w-[350px] lg:ml-0 md:ml-12 px-3">
 
-                    <button href='#' className='logoutbtn btn rounded-3 btn-danger '><LogOut className='logoutIcon' size={20}/> <span className='logOut'>Log Out</span></button>
-                </div>
+        <img
+          src={url}
+          alt="Logo"
+          className="w-28 md:w-36 lg:w-40 ml-2"
+        />
 
-            </div>
+        <div className="hidden lg:block ml-4 text-slate-900 dark:text-white">
+          <p className="font-bold leading-5">
+            <span className="text-xl">
+              Koda Dashboard
+            </span>
 
-           
-    );
-}
+            <br />
 
-export default NavBar
+            <small className="text-xs font-light text-slate-500 dark:text-slate-400">
+              E-Commerce Admin Panel
+            </small>
+          </p>
+        </div>
+
+      </div>
+
+      {/* Right */}
+      <div className="flex items-center gap-2 md:gap-3 lg:justify-around px-3 lg:w-[45%]">
+
+        {/* Notification */}
+        <button
+          className="
+          relative
+          w-11 h-11
+          rounded-xl
+          border border-slate-200 dark:border-slate-700
+          bg-white dark:bg-slate-800
+          text-black dark:text-white
+          shadow-md hover:shadow-lg
+          flex items-center justify-center
+        "
+        >
+          <Bell size={20} />
+
+          <span className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-red-500"></span>
+        </button>
+
+        {/* Theme */}
+        <button
+          onClick={toggleTheme}
+          className="
+          w-11 h-11
+          rounded-xl
+          border border-slate-200 dark:border-slate-700
+          bg-white dark:bg-slate-800
+          text-black dark:text-white
+          shadow-md hover:shadow-lg
+          flex items-center justify-center
+        "
+        >
+          {theme === "light" ? (
+            <Moon size={20} />
+          ) : (
+            <Sun size={20} />
+          )}
+        </button>
+
+        {/* Admin */}
+        <div
+          className="
+          hidden lg:flex
+          items-center justify-around
+          w-[47%] h-[75%]
+          rounded-2xl
+          border border-slate-200 dark:border-slate-700
+          bg-slate-50 dark:bg-slate-800
+          text-black dark:text-white
+        "
+        >
+          <div className="w-10 h-10 rounded-full bg-blue-400 flex items-center justify-center text-white">
+            AA
+          </div>
+
+          <div className="p-1">
+            <p className="font-bold leading-5 whitespace-nowrap">
+              Admin Account
+              <br />
+
+              <span className="text-sm font-light text-slate-500 dark:text-slate-400">
+                Admin
+              </span>
+            </p>
+          </div>
+        </div>
+
+        {/* Logout */}
+        <button
+          className="
+          h-11
+          px-3
+          rounded-xl
+          bg-red-500 hover:bg-red-600
+          text-white font-bold
+          flex items-center gap-2
+        "
+        >
+          <LogOut size={20} />
+
+          <span className="hidden md:hidden lg:inline whitespace-nowrap">
+            Log Out
+          </span>
+        </button>
+
+      </div>
+    </div>
+  );
+};
+
+export default NavBar;

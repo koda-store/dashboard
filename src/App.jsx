@@ -14,6 +14,8 @@ import AddProduct from "./pages/AddProduct";
 import NotFound from "../src/pages/NotFound";
 import Home from "./pages/Home";
 import Loading from "./pages/Loading";
+import DashboardLayout from "./layout/dashboardcontext";
+// import NavBar from "./components/ui/NavBar";
 
 
 function App() {
@@ -21,19 +23,25 @@ function App() {
 
   return (
     <>
-      {location.pathname !== "/login" && <NavBar />}
+      {/* {location.pathname !== "/login" && <NavBar />} */}
 
-      <Routes>
-        <Route path="/login" element={<Login />} />
+    <Routes>
+  <Route path="/login" element={<Login />} />
 
-         <Route path="/user" element={<User />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/customers" element={<Customers />} />
-          <Route path="/settings" element={<Settings />} />
+  <Route element={<DashboardLayout />}>
+    <Route index element={<Home />} />
+    <Route path="/user" element={<User />} />
+    <Route path="/orders" element={<Orders />} />
+    <Route path="/customers" element={<Customers />} />
+    <Route path="/products" element={<Products />} />
+    <Route path="/AddProduct" element={<AddProduct />} />
+    <Route path="/Carts" element={<Carts />} />
+    <Route path="/settings" element={<Settings />} />
+    <Route path="/loading" element={<Loading />} />
+  </Route>
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+  <Route path="*" element={<NotFound />} />
+</Routes>
 
       <ToastContainer
         position="bottom-left"

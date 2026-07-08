@@ -116,7 +116,7 @@ function User() {
 
   return (
     // تعديل 1: تم زيادة الـ pt إلى pt-14 لتنزيل الشغل وإعطاء مساحة مريحة تحت الهيدر علطول
-    <div className="w-full pt-30 pl-4 lg:pl-72 pr-4 md:pr-8 bg-slate-50 text-slate-800 min-h-screen box-border">
+    <div className="w-full pt-30  pr-4 md:pr-8 bg-slate-50 text-slate-800 min-h-screen box-border">
       
       {/* ==================== الرسالة الجانبية التلقائية (Toast) ==================== */}
       {toast.show && (
