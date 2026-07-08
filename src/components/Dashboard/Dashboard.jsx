@@ -4,8 +4,7 @@ import OrderStatus from "./OrderStatus";
 import TopProducts from "./TopProducts";
 import RecentOrders from "./RecentOrders";
 import Overview from "./Overview";
-import Sidebar from "../ui/SideBar";
-import NavBar from "../ui/NavBar";
+
 
 function Dashboard() {
   return (

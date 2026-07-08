@@ -4,6 +4,7 @@ import { api } from "../../api/axios";
 
 function OrderStatus() {
   const [orders, setOrders] = useState([]);
+   const [error, setError] = useState("");
 
   useEffect(() => {
     getOrders();
@@ -15,6 +16,7 @@ async function getOrders() {
 
    
     setOrders(data.orders || []);
+    setError("");
   }catch (error) {
   setError(error.response?.data?.message || "Failed to load order status.");
 }
@@ -73,10 +75,17 @@ async function getOrders() {
     text: "text-red-700",
   },
 ];
+if (error) {
+  return (
+    <div className="bg-white rounded-2xl shadow-xl border border-red-200 p-6">
+      <p className="text-center text-red-500">{error}</p>
+    </div>
+  );
+}
   return (
 <div className="bg-white  rounded-2xl shadow border border-blue-200 p-4 my-2 h-full  ">  
     <div className="flex items-center justify-between mb-4">
-     <h1 className="tracking-widest text font text-cyan-400 p-2 ">Order status</h1>
+     <h1 className="tracking-[0.35em] uppercase  text-sm  text-cyan-400 uppercase p-2 ">Order status</h1>
      <span className="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium">
     Updated from API
   </span>

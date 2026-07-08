@@ -58,20 +58,21 @@ function RecentOrders() {
   }
 };
 if (error) {
-  return (
-    <div className="bg-white rounded-2xl shadow-xl border border-red-200 p-6">
-      <p className="text-red-500 text-center">{error}</p>
-    </div>
-  );
-}
-if (orders.length === 0) {
-  return (
-    <div className="bg-white rounded-2xl shadow-xl border border-blue-200 p-6">
-      <h3 className="text-xl font-semibold mb-2">Recent Orders</h3>
-      <p className="text-gray-500 text-center">
-        No recent orders found.
-      </p>
-    </div>
+    return (
+      <div className="bg-white rounded-2xl shadow-xl border border-red-200 p-6">
+        <h3 className="text-xl font-semibold mb-2">Recent Orders</h3>
+        <p className="text-center text-red-500">{error}</p>
+      </div>
+    );
+  }
+  if (orders.length === 0) {
+    return (
+      <div className="bg-white rounded-2xl shadow-xl border border-blue-200 p-6">
+        <h3 className="text-xl font-semibold mb-2">Recent Orders</h3>
+        <p className="text-gray-500 text-center">
+          No recent orders found.
+        </p>
+      </div>
   );
 }
   return (

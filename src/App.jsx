@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -13,22 +13,23 @@ import Products from "../src/pages/Products";
 import AddProduct from "./pages/AddProduct";
 import NotFound from "../src/pages/NotFound";
 import Home from "./pages/Home";
-import NavBar from "./components/ui/NavBar";
+import Loading from "./pages/Loading";
+
 
 function App() {
+  const location = useLocation();
+
   return (
     <>
-      <NavBar/>
+      {location.pathname !== "/login" && <NavBar />}
+
       <Routes>
         <Route path="/login" element={<Login />} />
 
          <Route path="/user" element={<User />} />
           <Route path="/" element={<Home />} />
           <Route path="/orders" element={<Orders />} />
-          <Route path="/Carts" element={<Carts />} />
           <Route path="/customers" element={<Customers />} />
-          <Route path="/Products" element={<Products />} />
-          <Route path="/AddProduct" element={<AddProduct />} />
           <Route path="/settings" element={<Settings />} />
 
         <Route path="*" element={<NotFound />} />

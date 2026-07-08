@@ -42,6 +42,7 @@ const [error, setError] = useState("");
       .slice(0, 5);
 
     setTopProducts(topProducts);
+    setError("");
   } catch (error) {
   setError(error.response?.data?.message || "Failed to load top products.");
  }
