@@ -8,7 +8,7 @@ import Overview from "./Overview";
 
 function Dashboard() {
   return (
-    <div className=" fade-up p-6  w-full ">
+    <div className=" fade-up   w-full ">
    <Overview/>
       <StatsCards />
      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 ">
