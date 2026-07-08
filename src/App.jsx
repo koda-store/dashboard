@@ -11,9 +11,8 @@ import Products from "../src/pages/Products";
 import AddProduct from "./pages/AddProduct";
 import NotFound from "../src/pages/NotFound";
 import Home from "./pages/Home";
-import NavBar from "./components/ui/NavBar";
+import Loading from "./pages/Loading";
 
-// import ProtectedRoute from "./components/ui/ProtectedRoute"; // لو خلصت page login فك الكومنت ده
 
 function App() {
   const location = useLocation();
@@ -25,13 +24,12 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
 
-        <Route path="/" element={<Home />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/Carts" element={<Carts />} />
-        <Route path="/customers" element={<Customers />} />
-        <Route path="/Products" element={<Products />} />
-        <Route path="/AddProduct" element={<AddProduct />} />
-        <Route path="/settings" element={<Settings />} />
+  <Route path="/" element={<Loading />} />
+
+          <Route path="/home" element={<Home />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/customers" element={<Customers />} />
+          <Route path="/settings" element={<Settings />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
