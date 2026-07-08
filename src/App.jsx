@@ -1,38 +1,46 @@
-import { Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Sidebar from './components/Sidebar';
+import Navbar from './components/Navbar'; 
+import Orders from './pages/Orders'; 
+import Login from './pages/Login'; 
 
-
-import Login from "../src/pages/Login";
-import Orders from "../src/pages/Orders";
-import Customers from "../src/pages/Customers";
-import Settings from "../src/pages/Settings";
-import NotFound from "../src/pages/NotFound";
-import Home from "./pages/Home";
-
-function App() {
+const App = () => {
   return (
-    <>
-      <Routes>
-        <Route path="/login" element={<Login />} />
+    <Routes>
+    
+      <Route path="/login" element={<Login />} />
 
-  
-          <Route path="/" element={<Home />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/customers" element={<Customers />} />
-          <Route path="/settings" element={<Settings />} />
+      
+      <Route 
+        path="/*" 
+        element={
+          <div className="flex bg-slate-50 min-h-screen text-slate-800">
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+            <Sidebar />
 
-      <ToastContainer
-        position="bottom-left"
-        rtl
-        theme="colored"
-        autoClose={3000}
+            <div className="flex-1 lg:pl-64 flex flex-col min-w-0 relative">
+              
+            
+              <div className="sticky top-0 z-50 bg-white shadow-xs">
+                <Navbar />
+              </div>
+            
+              <div className="p-4 md:p-6 lg:p-8 flex-1 pt-6 mt-20 relative z-10">
+                <Routes>
+                  <Route path="/" element={<Navigate to="/orders" replace />} />
+                  <Route path="/orders" element={<Orders />} />
+                </Routes>
+              </div>
+
+            </div>
+          </div>
+        } 
       />
-    </>
+    </Routes>
   );
-}
+};
 
 export default App;
+
+
