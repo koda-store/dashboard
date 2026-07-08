@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useSidebar } from "../../context/SidebarContext";
 import { Home, Users, Package, Plus, FileText, ShoppingCart, Settings, Menu, X,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 const SideBar = () => {
+  const { isCollapsed, toggleCollapsed } = useSidebar();
+
   const [isOpen, setIsOpen] = useState(false);
-  const { toggleCollapsed } = useSidebar();
-  
   return (
     <>
       {/* زر الموبايل */}
@@ -20,11 +20,11 @@ const SideBar = () => {
         </button>
         )}
 
-      <aside
-        className={`fixed md:static top-0 left-0 h-screen w-64 bg-white border-r border-gray-200 flex flex-col justify-between z-40 transform transition-transform duration-300
-        ${isOpen ? "translate-x-0" : "-translate-x-full"}
-        md:translate-x-0`}
-      >
+      <aside 
+  className={`fixed top-0 left-0 h-screen w-[248px] z-40 bg-white border-r border-gray-200 flex flex-col justify-between transition-transform duration-300
+  ${isOpen ? "translate-x-0" : "-translate-x-full"}
+  md:translate-x-0`}
+>
         {/* Top Section */}
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
