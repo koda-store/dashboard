@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const AddProduct = () => {
+const Edite = () => {
   const [product, setProduct] = useState({
     name: "",
     brand: "",
@@ -68,55 +68,92 @@ const AddProduct = () => {
 
   const navigate = useNavigate();
 
-  const createProduct = async () => {
+  const { id } = useParams()
+  const selectProducts = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    if (selectProducts.loading) {
+      dispatch(callProduct());
+    }
+  }, [dispatch, selectProducts]);
+
+  const currentProduct = selectProducts.products.products?.find(
+    (item) => item._id === id
+  );
+
+  useEffect(() => {
+    if (currentProduct) {
+      setTags(currentProduct.tags);
+      setImage(currentProduct.images)
+      setProduct({
+        name: currentProduct.name,
+        brand: currentProduct.brand,
+        price: currentProduct.price,
+        discount: currentProduct.discountPrice,
+        discription: currentProduct.description,
+        shortDiscription: currentProduct.shortDescription,
+        category: currentProduct.category,
+        subcategory: currentProduct.subcategory,
+        featured: currentProduct.featured,
+        active: currentProduct.isActive,
+        stock: currentProduct.stock,
+        sku: currentProduct.sku,
+      })
+    }
+  }, [currentProduct, id]);
+
+  const updateProduct = async (id) => {
     try {
       const data = { ...product, image, tags }
       const token = '';
-      const req = await axios.patch(`https://e-commerce-api-3wara.vercel.app/products`, data, {
+      const req = await axios.patch(`https://e-commerce-api-3wara.vercel.app/products/update/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
-      toast.success("Product Created Successfully");
+      toast.success("Product Updated Successfully");
     } catch (error) {
-      toast.error("Failed to Create product");
+      toast.error("Failed to update product");
     }
   }
 
   return (
     <div className="flex">
-      <div className="mt-10 flex-1">
+      <div className="min-h-screen mt-10 flex-1 bg-gray-100 dark:bg-gray-950 p-3 md:p-5">
         <div className="rounded-xl bg-gray-950 dark:bg-gray-900 p-4 md:p-8">
           <button
             onClick={() => navigate("/products")}
-            className="flex cursor-pointer items-center gap-2 rounded bg-gray-200/10 hover:bg-gray-200/20 px-3 py-2 text-sm text-gray-300 transition"
+            className="flex cursor-pointer items-center gap-2 rounded bg-gray-200/10 px-3 py-2 text-sm text-gray-300 transition hover:text-white"
           >
             <ArrowBigLeft size={16} />
             Back
           </button>
 
           <h1 className="mt-5 flex items-start gap-2 text-lg font-bold text-white md:text-2xl">
-            <SquareKanban size={22} className="shrink-0 mt-1 text-cyan-400" />
-            Launch a polished product entry
+            <SquareKanban size={22} className="mt-1 shrink-0" />
+            Update and refine the product entry
           </h1>
 
-          <div className="flex items-start justify-start mt-3 gap-10 max-lg:flex-col">
+          <div className="mt-3 flex items-start justify-start gap-10 max-lg:flex-col">
             <div>
-              <p className="text-gray-300">
-                Add products with validation, image previews, multi-upload support,
-                and smooth UX.
+              <p className="text-white/70">
+                Review the current product product, add new images, remove existing
+                ones, and save your updates safely.
               </p>
             </div>
 
-            <div className="text-white border border-white/15 max-lg:w-full p-5 bg-white/10 rounded-lg">
-              <h2 className="text-cyan-300 mb-2">Ready</h2>
-
-              <p className="text-sm text-gray-300">
-                Create, validate, and save with one click.
+            <div className="max-lg:w-full rounded-lg border border-white/15 bg-white/10 p-5 text-white">
+              <h2 className="mb-2 text-cyan-300">Live</h2>
+              <p className="text-sm text-white/70">
+                Connected to the real product update API.
               </p>
             </div>
           </div>
         </div>
+
+
         <div className="grid grid-col-1 lg:grid-cols-2 mt-5 gap-5">
           <div className="bg-white dark:bg-gray-900 shadow border border-gray-200 dark:border-gray-700 p-4 md:p-8 rounded-xl">
             <div className="flex items-start justify-start gap-5">
@@ -161,7 +198,6 @@ const AddProduct = () => {
               </div>
             </div>
 
-
             <div className="mt-5">
               <label className="flex h-35 w-full cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 transition hover:border-cyan-500 hover:bg-cyan-50 dark:hover:bg-cyan-950/30">
                 <ImagePlus size={40} className="text-gray-400 dark:text-gray-500" />
@@ -197,7 +233,7 @@ const AddProduct = () => {
                     onChange={handleChange}
                     name="name"
                     type="text"
-                    value={product.name ?? ''}
+                    value={product.name ?? ""}
                     placeholder="MacBook Pro 14-inch"
                     className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:bg-white dark:focus:bg-gray-800"
                   />
@@ -212,7 +248,7 @@ const AddProduct = () => {
                     onChange={handleChange}
                     name="shortDiscription"
                     type="text"
-                    value={product.shortDiscription ?? ''}
+                    value={product.shortDiscription ?? ""}
                     placeholder="Short description..."
                     className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:bg-white dark:focus:bg-gray-800"
                   />
@@ -226,14 +262,14 @@ const AddProduct = () => {
                   <textarea
                     onChange={handleChange}
                     name="discription"
-                    value={product.discription ?? ''}
+                    value={product.discription ?? ""}
                     rows={6}
                     placeholder="Product description..."
                     className="w-full resize-none rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:bg-white dark:focus:bg-gray-800"
                   />
                 </div>
-                <div className="grid md:grid-cols-2 gap-5">
 
+                <div className="grid md:grid-cols-2 gap-5">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Price
@@ -244,7 +280,7 @@ const AddProduct = () => {
                       value={product.price ?? ""}
                       name="price"
                       type="number"
-                      className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none focus:border-cyan-500 dark:focus:bg-gray-800"
+                      className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-3 text-sm outline-none focus:border-cyan-500 dark:focus:bg-gray-800"
                     />
                   </div>
 
@@ -258,14 +294,12 @@ const AddProduct = () => {
                       value={product.discount ?? ""}
                       name="discount"
                       type="number"
-                      className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none focus:border-cyan-500 dark:focus:bg-gray-800"
+                      className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-3 text-sm outline-none focus:border-cyan-500 dark:focus:bg-gray-800"
                     />
                   </div>
-
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-5">
-
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Stock
@@ -276,7 +310,7 @@ const AddProduct = () => {
                       value={product.stock ?? ""}
                       name="stock"
                       type="number"
-                      className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none focus:border-cyan-500 dark:focus:bg-gray-800"
+                      className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-3 text-sm outline-none focus:border-cyan-500 dark:focus:bg-gray-800"
                     />
                   </div>
 
@@ -293,7 +327,6 @@ const AddProduct = () => {
                       className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none focus:border-cyan-500 dark:focus:bg-gray-800"
                     />
                   </div>
-
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-5">
@@ -320,14 +353,15 @@ const AddProduct = () => {
                     </label>
 
                     <input
+                      value={product.subcategory ?? ""}
                       onChange={handleChange}
                       type="text"
                       name="subcategory"
-                      value={product.subcategory ?? ""}
                       className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none focus:border-cyan-500 dark:focus:bg-gray-800"
                     />
                   </div>
                 </div>
+
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -386,6 +420,7 @@ const AddProduct = () => {
                     ))}
                   </div>
                 </div>
+
                 <div className="flex flex-wrap gap-6">
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
@@ -416,9 +451,7 @@ const AddProduct = () => {
                   </label>
                 </div>
 
-
                 <div className="pt-6 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-3">
-
                   <button
                     type="button"
                     className="rounded-xl border border-red-300 dark:border-red-700 px-6 py-2 font-medium text-red-500 dark:text-red-400 cursor-pointer hover:bg-red-100 dark:hover:bg-red-900/20 transition"
@@ -427,13 +460,12 @@ const AddProduct = () => {
                   </button>
 
                   <button
-                    onClick={createProduct}
+                    onClick={() => updateProduct(id)}
                     type="submit"
                     className="rounded-xl bg-cyan-500 px-6 py-2 font-medium text-white hover:bg-cyan-400 transition cursor-pointer"
                   >
-                    Add
+                    Save Changes
                   </button>
-
                 </div>
 
               </div>
@@ -445,4 +477,4 @@ const AddProduct = () => {
   )
 }
 
-export default AddProduct
+export default Edite
