@@ -1,9 +1,17 @@
-import React from 'react'
-
+import React from "react";
+import Dashboard from "../components/Dashboard/Dashboard";
+import Sidebar from "../components/ui/SideBar";
+import NavBar from "../components/ui/NavBar";
 function Home() {
   return (
-    <div className="bg-gray-700 p-4 font-medium text-3xl ">Home</div>
-  )
+    <div className="flex bg-sky-50">
+      <Sidebar />
+      <NavBar />
+      <div className="flex-1 p-8 pt-20 md:pt-8">
+          <Dashboard />
+      </div>
+    </div>
+  );
 }
 
-export default Home
+export default Home;
