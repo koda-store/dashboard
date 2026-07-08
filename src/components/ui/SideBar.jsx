@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { useSidebar } from "../../context/SidebarContext";
 import { Home, Users, Package, Plus, FileText, ShoppingCart, Settings, Menu, X,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { toggleCollapsed } = useSidebar();
-  
+
   return (
     <>
       {/* زر الموبايل */}
