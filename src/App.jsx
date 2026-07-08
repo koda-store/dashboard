@@ -2,6 +2,8 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
+import User from "./pages/User";
 import Login from "../src/pages/Login";
 import Orders from "../src/pages/Orders";
 import Customers from "../src/pages/Customers";
@@ -24,9 +26,8 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
 
-  <Route path="/" element={<Loading />} />
-
-          <Route path="/home" element={<Home />} />
+         <Route path="/user" element={<User />} />
+          <Route path="/" element={<Home />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/settings" element={<Settings />} />
@@ -46,67 +47,16 @@ function App() {
 
 export default App;
 
-/*
-<Route
-  path="/"
-  element={
-    <ProtectedRoute>
-      <Home />
-    </ProtectedRoute>
-  }
-/>
 
-<Route
-  path="/orders"
-  element={
-    <ProtectedRoute>
-      <Orders />
-    </ProtectedRoute>
-  }
-/>
 
-<Route
-  path="/Carts"
-  element={
-    <ProtectedRoute>
-      <Carts />
-    </ProtectedRoute>
-  }
-/>
 
-<Route
-  path="/customers"
-  element={
-    <ProtectedRoute>
-      <Customers />
-    </ProtectedRoute>
-  }
-/>
 
-<Route
-  path="/Products"
-  element={
-    <ProtectedRoute>
-      <Products />
-    </ProtectedRoute>
-  }
-/>
 
-<Route
-  path="/AddProduct"
-  element={
-    <ProtectedRoute>
-      <AddProduct />
-    </ProtectedRoute>
-  }
-/>
 
-<Route
-  path="/settings"
-  element={
-    <ProtectedRoute>
-      <Settings />
-    </ProtectedRoute>
-  }
-/>
-*/
+
+
+
+
+
+
+

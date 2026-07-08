@@ -60,7 +60,7 @@ const SideBar = () => {
             </NavLink>
 
             <NavLink
-              to="/customers"
+              to="/user"
               onClick={() => setIsOpen(false)}
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${
