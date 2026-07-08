@@ -103,7 +103,7 @@ const Orders = () => {
   };
 
   return (
-    <div className="space-y-6 text-slate-700 select-none relative p-6 font-sans">
+    <div className="space-y-6 text-slate-700 select-none relative pt-20 pl-9  font-sans">
       <Toaster position="top-center" reverseOrder={false} />
       
       <div className="flex items-end justify-between pb-2 border-b border-slate-100">

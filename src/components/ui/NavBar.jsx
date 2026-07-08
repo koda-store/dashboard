@@ -38,7 +38,7 @@ const NavBar = () => {
 
         <div className="hidden lg:block ml-4 text-slate-900 dark:text-white">
           <p className="font-bold leading-5">
-            <span className="text-xl">
+            <span className="text-xl  whitespace-nowrap">
               Koda Dashboard
             </span>
 
