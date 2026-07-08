@@ -5,8 +5,6 @@ import NavBar from "../components/ui/NavBar";
 function Home() {
   return (
     <div className="flex bg-sky-50">
-      <Sidebar />
-      <NavBar />
       <div className="flex-1 p-4  md:pt-8">
           <Dashboard />
       </div>

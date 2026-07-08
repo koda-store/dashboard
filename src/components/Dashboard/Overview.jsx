@@ -8,7 +8,7 @@ function Overview() {
       <h1 className="tracking-[0.35em] uppercase text-lg  text-cyan-400 ">
        Admin overview
       </h1>
-<p className="mt-2 text-black italic">Real-time commerce health</p>
+<p className="mt-2 text-black italic dark:text-white">Real-time commerce health</p>
       <span className="mt-2 text-gray-500 italic">
         Manage your products, customers, and orders from one place.
       </span>
