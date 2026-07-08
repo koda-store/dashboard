@@ -71,10 +71,10 @@ function App() {
           <Route path="/AddProduct" element={<AddProduct />} />
           <Route path="/Carts" element={<Carts />} />
           <Route path="/settings" element={<Settings />} />
-          <Route path="/loading" element={<Loading />} />
+          {/* <Route path="/loading" element={<Loading />} /> */}
         </Route>
 
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={< Loading />} />
       </Routes>
 
       <ToastContainer
