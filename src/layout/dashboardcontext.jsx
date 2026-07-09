@@ -17,7 +17,7 @@ export default function DashboardLayout() {
       >
         <NavBar />
 
-        <main className="flex-1 p-4 mt-10 lg:p-6 bg-slate-100 dark:bg-slate-900">
+        <main className="flex-1 p-4 mt-10 lg:p-6 bg-gray-100 dark:bg-slate-900 text-gray-900 dark:text-white transition-colors duration-300">
           <Outlet />
         </main>
       </div>
