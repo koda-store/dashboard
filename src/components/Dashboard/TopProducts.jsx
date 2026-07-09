@@ -55,37 +55,37 @@ if (error) {
   );
 }
   return (
-<div className="bg-white my-2 h-full rounded-2xl shadow-xl border border-blue-200 p-4">
+<div className="bg-white my-2 h-full rounded-2xl shadow-xl border border-blue-200 p-6 border-white border-slate-600  dark:bg-slate-800 dark:border-slate-600 ">
   
-  <h1 className="tracking-widest text-xl font text-cyan-400 py-4 ">Top products</h1>
+  <h1 className="tracking-[0.35em] uppercase text-lg  text-cyan-400 py-4 ">Top products</h1>
   
-  <h3 className="text-xl font-semibold mb-5">Best Sellers</h3>
+  <h3 className="text-gl font-semibold  mb-5 dark:text-white">Best Sellers</h3>
 
   <div className="space-y-2">
     {topProducts.map((product) => (
       <div
         key={product.id}
-        className="flex items-center bg-blue-50 p-6 border  rounded-xl justify-between border-b border-gray-100 pb-4  "
+        className="flex items-center bg-blue-50 p-6 border  rounded-xl justify-between  border-gray-200 pb-4 dark:bg-slate-900 dark:border-slate-600  "
       >
         <div className="flex items-center  gap-4">
           <img
             src={product.image}
             alt={product.name}
-            className="w-14 h-14 rounded-lg object-cover border border-gray-200"
+            className="w-15 h-15 rounded-lg object-cover"
           />
 
           <div>
-            <h5 className="font-semibold text-gray-800 text-sm">
+            <h5 className=" text-gray-800 text-sm dark:text-white">
               {product.name}
             </h5>
 
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-gray-500 mt-1 dark:text-gray-400">
               {product.sold} units sold
             </p>
           </div>
         </div>
 
-        <span className="font-semibold text-gray-800">
+        <span className=" text-gray-800 dark:text-gray-400">
          ${product.price?.toFixed(2) || "0.00"}
         </span>
       </div>

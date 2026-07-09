@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../components/ui/SideBar";
 import NavBar from "../components/ui/NavBar";
 import { useSidebar } from "../context/SidebarContext";
+import { Theme } from "../components/Navbar/Context";
 
 export default function DashboardLayout() {
   const { isCollapsed } = useSidebar();
@@ -11,13 +12,12 @@ export default function DashboardLayout() {
       <Sidebar />
 
       <div
-  className={`flex min-h-screen flex-col transition-all duration-300 ${
-    isCollapsed ? "md:ml-[76px]" : "md:ml-[248px]"
-  }`}
->
+        className={`flex min-h-screen flex-col transition-all duration-300 ${isCollapsed ? "md:ml-[76px]" : "md:ml-[248px]"
+          }`}
+      >
         <NavBar />
 
-        <main className="flex-1 p-4 mt-10 lg:p-6">
+        <main className="flex-1 p-4 mt-10 lg:p-6 bg-gray-100 dark:bg-slate-900 text-gray-900 dark:text-white transition-colors duration-300">
           <Outlet />
         </main>
       </div>
