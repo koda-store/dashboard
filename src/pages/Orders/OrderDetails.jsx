@@ -52,13 +52,13 @@ export default function OrderDetails() {
       
       setOrder((prev) => ({ ...prev, status: statusInput }));
       
-      toast.success(`تم تحديث حالة الأوردر إلى "${statusInput}" بنجاح`, {
+     toast.success(`Order status successfully updated to "${statusInput}"`, {
         duration: 4000,
         position: 'top-center',
         style: { background: '#ffffff', color: '#1e293b', fontWeight: 'bold', borderRadius: '12px' }
       });
     } catch (err) {
-      toast.error("فشل تحديث الحالة، حاول مرة أخرى");
+     toast.error("Failed to update status. Please try again.");
     } finally {
       setUpdating(false);
     }

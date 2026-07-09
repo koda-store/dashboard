@@ -189,9 +189,5 @@ function Login() {
   );
 }
 
-<<<<<<< HEAD
 export default Login
 
-=======
-export default Login;
->>>>>>> 096520aded8265af03bb7d293a257c9c120e9992
