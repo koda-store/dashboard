@@ -1,184 +1,203 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+:root {
+  --navbar-bg: #ffffff;
+  --text-bg:#000000;
+   --bg-card:rgb(247, 252, 255);
+   --bg-btn:#ffffff;
+   --border-color: rgb(233, 243, 253);
+   --text-secondary: #585c63;
+   --bg-shadow:rgb(202, 202, 202);
+  
 }
 
-.hero {
-  position: relative;
 
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
+body.dark{
+   --navbar-bg: #0f1729;
+   --text-bg:#ffffff;
+   --bg-card:#1a2338;
+   --bg-btn:#1a2338;
+   --border-color: #2a3550;
+   --text-secondary: #8b95a8;
+   --bg-shadow:#0f1729;
 }
 
-#center {
+.navBar{
+  height: 80px;
+  border-bottom: 1px solid var(--border-color);
+ background-color: var(--navbar-bg);
+transition: background-color 0.3s ease;
+
+}
+
+.right_bar {
+  width: 45%;
+  height: 90%;
+  justify-content: space-around;
+
+}
+.left_bar{
+  width: 350px;
+  height: 90%;
+}
+
+.moodbtn{
+  width: 25%;
+  height: 100%;
+}
+
+.notifcation{
+  width: 45px;
+  height: 45px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background-color: var(--bg-btn);
+  color: var(--text-bg);
+  box-shadow: 0px 5px 5px -5px var(--bg-shadow) ;
   display: flex;
-  flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
+  justify-content: center;
+  align-items:  center;
+}
+.notifcation:hover{
+  box-shadow: 0px 7px 9px -5px var(--bg-shadow) ;
 }
 
-#next-steps {
+.not{
+  width: 10px;
+  height: 10px;
+  left: 22px;
+  top: 8px;
+}
+
+
+.adminAccount{
+  width: 47%;
+  height: 75%;
+  background-color:var(--bg-card) ;
+  border: 1px solid var(--border-color);
+  color: var(--text-bg);
   display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
+}
+.accountName{
+  width:40px;
+  height: 40px;
+  text-align: center;
+  
+  
 }
 
-#docs {
-  border-right: 1px solid var(--border);
+.imgBrand{
+  width: 150px;
+  margin-left: 20px;
+}
+.Brand{
+  margin-left: 15px;
+  padding-top: 10px;
+  color: var(--text-bg);
 
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
 }
 
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
+.collapsmal{
+  display: none;
+}
+.logoutbtn{
+  border-radius: 10px;
+}
+.logoutIcon{
+  display: inline;
+}
 
-  .logo {
-    height: 18px;
-  }
+.text-sce{
+  color: var(--text-secondary);
+}
 
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
+/* Midume screen */
+@media (min-width:761px) and (max-width: 1100px){
+  .navBar{
+  height: 90px;
+
+}
+
+  .right_bar{
+    width: 200px;
     display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
+    justify-content: space-evenly;
   }
+  .left_bar{
+  width: 350px;
+  margin-left: 50px;
+}
 
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
+  .adminAccount{
+    display: none ;
+  }
+.accountName{
+  margin:0px 10px;
+}
+.logoutbtn{
+    width: 45px;
+    height: 45px;
+}
+.imgBrand{
+    width: 150px;
+  }
+  .logOut{
+    display: none;
+  }
+  .moodbtn{
 
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
+    width: auto;
 
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
+  }
+    .Brand{
+    display: none;
   }
 }
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
+/* Small screen */
+@media  (min-width: 490px) and (max-width: 760px){
+
+.left_bar{
+   width: 350px;
+  height: 90%;
 }
 
-.ticks {
-  position: relative;
-  width: 100%;
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
-
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
+  .navBar{
+    width: 100%;
     right: 0;
-    border-right-color: var(--border);
+    padding: 0 10px;
   }
+
+  .Brand{
+    display: none;
+  }
+
+  .adminAccount{
+    display: none ;
+  }
+
+  .right_bar{
+    width: auto;
+    gap: 10px;
+  }
+
+  .moodbtn{
+    width: auto;
+
+  }
+
+  .notifcation,.logoutbtn{
+    width: 45px;
+    height: 45px;
+  }
+
+  .imgBrand{
+    width: 150px;
+    margin-left: 20;
+  }
+  .logOut{
+    display: none;
+  }
+.collapsmal{
+  display: block;
+}
 }

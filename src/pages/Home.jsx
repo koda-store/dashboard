@@ -1,13 +1,14 @@
 import React from "react";
+import Dashboard from "../components/Dashboard/Dashboard";
 import Sidebar from "../components/ui/SideBar";
-
+import NavBar from "../components/ui/NavBar";
 function Home() {
   return (
-    <div className="flex">
+    <div className="flex bg-sky-50">
       <Sidebar />
-
+      <NavBar />
       <div className="flex-1 p-8 pt-20 md:pt-8">
-        <h1 className="text-3xl font-bold">Home</h1>
+          <Dashboard />
       </div>
     </div>
   );
