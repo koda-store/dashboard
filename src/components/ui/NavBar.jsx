@@ -1,5 +1,5 @@
-
-import url from "../../KodaLogo2-D3eRgjLV.png";
+import url_Dark from "../../logo_Dark_Mode.png";
+import url_Light from "../../Logo_Light_mode.png";
 import { Bell, Moon, LogOut, Sun } from "lucide-react";
 import { useContext } from "react";
 import { Theme } from "../Navbar/Context";
@@ -31,7 +31,7 @@ const NavBar = () => {
       <div className="flex items-center h-full w-auto md:w-[350px] lg:w-[350px] lg:ml-0 md:ml-12 px-3">
 
         <img
-          src={url}
+          src={theme !=='light'? url_Dark:url_Light}
           alt="Logo"
           className="w-28 md:w-36 lg:w-40 ml-2"
         />

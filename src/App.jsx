@@ -51,6 +51,8 @@ import Home from "./pages/Home";
 import Loading from "./pages/Loading";
 import DashboardLayout from "./layout/dashboardcontext";
 import NavBar from "./components/ui/NavBar";
+import Product from "./pages/Product"
+import Edite from "./pages/Edite"
 
 function App(z) {
   const location = useLocation();
@@ -60,7 +62,7 @@ function App(z) {
       {location.pathname !== "/login" && <NavBar />}
 
       <Routes>
-        <Route path="/login" element={<Login />} />
+        {/* <Route path="/login" element={<Login />} /> */}
 
         <Route element={<DashboardLayout />}>
           <Route index element={<Home />} />
@@ -68,6 +70,8 @@ function App(z) {
           <Route path="/orders" element={<Orders />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/edite/:id" element={<Edite />} />
           <Route path="/AddProduct" element={<AddProduct />} />
           <Route path="/Carts" element={<Carts />} />
           <Route path="/settings" element={<Settings />} />
