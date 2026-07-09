@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../components/ui/SideBar";
 import NavBar from "../components/ui/NavBar";
 import { useSidebar } from "../context/SidebarContext";
+import { Theme } from "../components/Navbar/Context";
 
 export default function DashboardLayout() {
   const { isCollapsed } = useSidebar();
@@ -17,7 +18,7 @@ export default function DashboardLayout() {
 >
         <NavBar />
 
-        <main className="flex-1 p-4 mt-10 lg:p-6">
+        <main className="flex-1 p-4 mt-10 lg:p-6 bg-slate-100 dark:bg-slate-900">
           <Outlet />
         </main>
       </div>
