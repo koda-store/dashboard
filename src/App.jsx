@@ -52,7 +52,7 @@ import Loading from "./pages/Loading";
 import DashboardLayout from "./layout/dashboardcontext";
 import NavBar from "./components/ui/NavBar";
 
-function App() {
+function App(z) {
   const location = useLocation();
 
   return (
@@ -71,7 +71,7 @@ function App() {
           <Route path="/AddProduct" element={<AddProduct />} />
           <Route path="/Carts" element={<Carts />} />
           <Route path="/settings" element={<Settings />} />
-          {/* <Route path="/loading" element={<Loading />} /> */}
+          <Route path="/loading" element={<Loading />} />
         </Route>
 
         <Route path="*" element={< Loading />} />

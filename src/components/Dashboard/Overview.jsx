@@ -9,9 +9,8 @@ function Overview() {
        Admin overview
       </h1>
 
-<p className="mt-2 text-black  dark:text-white">Real-time commerce health</p>
+<p className="my-2 text-slate text-lg   dark:text-white">Real-time commerce health</p>
 
-<p className="mt-2 text-black italic dark:text-white">Real-time commerce health</p>
       <span className="mt-2 text-gray-500 ">
 
         Manage your products, customers, and orders from one place.

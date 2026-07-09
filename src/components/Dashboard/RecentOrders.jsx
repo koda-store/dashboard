@@ -54,12 +54,12 @@ function RecentOrders() {
       return "bg-red-100 text-red-700 dark:text-red-200";
 
     default:
-      return "bg-gray-100 text-gray-700 dark:text-gray-200";
+      return "bg-gray-100 text-gray-700 dark:text-gray-200 ";
   }
 };
 if (error) {
     return (
-      <div className="bg-white rounded-2xl shadow-xl border border-red-200 p-6">
+      <div className="bg-white rounded-2xl shadow-xl  p-6">
         <h3 className="text-xl  mb-2">Recent Orders</h3>
         <p className="text-center text-red-500">{error}</p>
       </div>
@@ -67,7 +67,7 @@ if (error) {
   }
   if (orders.length === 0) {
     return (
-      <div className="bg-white rounded-2xl shadow-xl border border-blue-200 p-6 dark:bg-slate-800">
+      <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-6 dark:bg-slate-800">
         <h3 className="text-xl  mb-2 dark:text-white">Recent Orders</h3>
         <p className="text-gray-500 text-center">
           No recent orders found.
