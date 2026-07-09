@@ -32,16 +32,17 @@ const StatCard = ({
   iconColor,
 }) => (
 <div
-  className={`group relative bg-white p-7 rounded-xl shadow-xl border border-t-6 border-white dark:bg-slate-800 dark:border-slate-600 ${borderColor}
-  transition-all duration-300  hover:-translate-y-1 hover:shadow-2xl dark:text-white`}>
+  className={`group relative bg-white p-7 rounded-xl 
+    shadow-xl border border-t-6 border-white dark:bg-slate-800
+     dark:border-slate-600 ${borderColor}
+  transition-all duration-300 
+   hover:-translate-y-1 hover:shadow-2xl dark:text-white`}>
 <div
   className={`absolute top-5 right-5 w-12 h-12 rounded-xl ${bgColor}
   flex items-center justify-center
-  transition-transform duration-300 hover:rotate-20`}
->
+  transition-transform duration-300 hover:rotate-20`}>
   <Icon className={`${iconColor} text-xl `} />
 </div>
-
     <h3 className="text-gray-600 dark:text-gray-400">{title}</h3>
     <h2 className="text-3xl font-bold mt-3 ">{value}</h2>
     <p className="text-gray-400 mt-2 dark:text-gray-400">{description}</p>

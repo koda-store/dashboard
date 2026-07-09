@@ -9,7 +9,7 @@ import Overview from "./Overview";
 function Dashboard() {
   return (
 
-    <div className=" fade-up p-4 m-4 lg:p-6">
+    <div className=" fade-up ">
    <Overview/>
 
       <StatsCards />

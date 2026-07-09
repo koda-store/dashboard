@@ -1,7 +1,5 @@
 import React from "react";
 
-
-
 function Overview() {
   return (
 <section className="my-8 rounded-xl bg-white p-7 border border-white shadow-xl w-full dark:bg-slate-800 dark:border-slate-600">     
@@ -12,7 +10,6 @@ function Overview() {
 <p className="my-2 text-slate text-lg   dark:text-white">Real-time commerce health</p>
 
       <span className="mt-2 text-gray-500 ">
-
         Manage your products, customers, and orders from one place.
       </span>
     </section>

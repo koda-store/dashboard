@@ -11,7 +11,7 @@ function Home() {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div className="flex bg-sky-50 dark:bg-slate-900">
+    <div className="flex  dark:bg-slate-900">
      
       <div className="flex-1   md:pt-4">
           <Dashboard />

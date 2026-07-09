@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../../api/axios";
 
-
-
 function RecentOrders() {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState("");
@@ -37,22 +35,16 @@ function RecentOrders() {
   switch (status) {
     case "pending":
       return "bg-yellow-100 text-yellow-700 dark:text-yellow-200";
-
     case "processing":
       return "bg-blue-100 text-blue-700 dark:text-blue-200";
-
     case "confirmed":
       return "bg-green-100 text-green-700 dark:text-green-200";
-
     case "shipped":
       return "bg-purple-100 text-purple-700 dark:text-purple-200";
-
     case "delivered":
       return "bg-emerald-100 text-emerald-700 dark:text-emerald-200";
-
     case "cancelled":
       return "bg-red-100 text-red-700 dark:text-red-200";
-
     default:
       return "bg-gray-100 text-gray-700 dark:text-gray-200 ";
   }
@@ -67,7 +59,7 @@ if (error) {
   }
   if (orders.length === 0) {
     return (
-      <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-6 dark:bg-slate-800">
+      <div className="bg-white rounded-2xl shadow-xl  p-6 dark:bg-slate-800">
         <h3 className="text-xl  mb-2 dark:text-white">Recent Orders</h3>
         <p className="text-gray-500 text-center">
           No recent orders found.
@@ -76,7 +68,7 @@ if (error) {
   );
 }
   return (
-    <div className="w-full bg-white rounded-2xl shadow-xl border border-white border-gray-600 p-6 dark:bg-slate-800 dark:border-slate-600">
+    <div className="w-full bg-white rounded-2xl shadow-xl border border-white  p-6 dark:bg-slate-800 dark:border-slate-600">
       <div className="flex  items-center justify-between mb-5">
   <div>
     <h3 className="text-sm uppercase text-cyan-500 tracking-[0.35em] dark:text-cyan-300">Recent Orders</h3>
@@ -102,8 +94,7 @@ if (error) {
             </p>
           </div>
 <div className="text-right flex flex-col items-end gap-2 ">
-  <span className={`capitalize rounded-xl px-3 py-1 text-sm font-medium dark:bg-slate-900/90 dark:text-gree-200  ${getStatusColor( order.status)}`}
->
+  <span className={`capitalize rounded-xl px-3 py-1 text-sm font-medium dark:bg-slate-900/90 dark:text-gree-200  ${getStatusColor( order.status)}`}>
   {order.status}
 </span>
 <h4 className="font-sm text-gray-800 dark:text-gray-300">
