@@ -4,7 +4,7 @@ function Carts() {
   return (
     <div className="flex">
 
-      <div className="flex-1 p-8 pt-20 md:pt-8 bg-[#f5f7fb] min-h-screen">
+      <div className="flex-1 p-8 pt-20 md:pt-8 bg-slate-100 min-h-screen">
         
         <div className="bg-white rounded-3xl shadow-md p-8 mb-8">
           <p className="text-cyan-400 tracking-[6px] text-sm mb-3">
