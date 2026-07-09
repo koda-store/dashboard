@@ -47,13 +47,19 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+ const logoutUser = () => {
+  localStorage.removeItem("dashboard-token");
+  setUser(null);
+};
+
   return (
     <AuthContext.Provider
       value={{
-        user,
-        loading,
-        loginUser,
-      }}
+      user,
+      loading,
+      loginUser,
+      logoutUser,
+    }}
     >
       {children}
     </AuthContext.Provider>

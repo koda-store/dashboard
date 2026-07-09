@@ -74,7 +74,7 @@ function App(z) {
           <Route path="/loading" element={<Loading />} />
         </Route>
 
-        <Route path="*" element={< Loading />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       <ToastContainer

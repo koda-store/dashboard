@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../components/ui/SideBar";
 import NavBar from "../components/ui/NavBar";
 import { useSidebar } from "../context/SidebarContext";
+import { Theme } from "../components/Navbar/Context";
 
 export default function DashboardLayout() {
   const { isCollapsed } = useSidebar();
