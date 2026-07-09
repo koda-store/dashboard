@@ -51,8 +51,10 @@ import Home from "./pages/Home";
 import Loading from "./pages/Loading";
 import DashboardLayout from "./layout/dashboardcontext";
 import NavBar from "./components/ui/NavBar";
+import Product from "./pages/Product"
+import Edite from "./pages/Edite"
 
-function App() {
+function App(z) {
   const location = useLocation();
 
   return (
@@ -68,13 +70,15 @@ function App() {
           <Route path="/orders" element={<Orders />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/edite/:id" element={<Edite />} />
           <Route path="/AddProduct" element={<AddProduct />} />
           <Route path="/Carts" element={<Carts />} />
           <Route path="/settings" element={<Settings />} />
-          {/* <Route path="/loading" element={<Loading />} /> */}
+          <Route path="/loading" element={<Loading />} />
         </Route>
 
-        <Route path="*" element={< Loading />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       <ToastContainer

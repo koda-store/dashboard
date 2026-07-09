@@ -5,7 +5,7 @@ export default function Loading() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("dashboard-token");
 
     if (!token) {
       navigate("/login");
@@ -19,7 +19,7 @@ export default function Loading() {
     })
       .then((res) => {
         if (res.ok) {
-          navigate("/home");
+           navigate("/");
         } else {
           navigate("/login");
         }

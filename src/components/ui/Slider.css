@@ -1,0 +1,13 @@
+/* ================= Slider ===================== */
+.swiper-button-prev,
+.swiper-button-next{
+  background-color: #fff !important;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  color: black;
+}
