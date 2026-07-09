@@ -62,7 +62,7 @@ function App(z) {
       {location.pathname !== "/login" && <NavBar />}
 
       <Routes>
-        {/* <Route path="/login" element={<Login />} /> */}
+        <Route path="/login" element={<Login />} />
 
         <Route element={<DashboardLayout />}>
           <Route index element={<Home />} />
@@ -78,7 +78,7 @@ function App(z) {
           <Route path="/loading" element={<Loading />} />
         </Route>
 
-        <Route path="*" element={< Loading />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       <ToastContainer

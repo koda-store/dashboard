@@ -4,10 +4,14 @@ import { Bell, Moon, LogOut, Sun } from "lucide-react";
 import { useContext } from "react";
 import { Theme } from "../Navbar/Context";
 import { useSidebar } from "../../context/SidebarContext";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const { theme, toggleTheme } = useContext(Theme);
   const { isCollapsed } = useSidebar();
+  const navigate = useNavigate();
+  const { logoutUser } = useAuth();
 
   return (
     <div
@@ -123,14 +127,18 @@ const NavBar = () => {
 
         {/* Logout */}
         <button
+          onClick={() => {
+            logoutUser();
+            navigate("/login");
+          }}
           className="
-          h-11
-          px-3
-          rounded-xl
-          bg-red-500 hover:bg-red-600
-          text-white font-bold
-          flex items-center gap-2
-        "
+            h-11
+            px-3
+            rounded-xl
+            bg-red-500 hover:bg-red-600
+            text-white font-bold
+            flex items-center gap-2
+          "
         >
           <LogOut size={20} />
 

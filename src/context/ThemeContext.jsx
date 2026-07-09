@@ -1,9 +1,10 @@
-
 import { useState, useEffect } from "react";
 import { Theme } from "../components/Navbar/Context.jsx";
 
 const ThemeContext = ({ children }) => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "light";
+  });
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
@@ -11,6 +12,8 @@ const ThemeContext = ({ children }) => {
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
+
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
   return (
