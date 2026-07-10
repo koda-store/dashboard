@@ -93,16 +93,16 @@ function Products() {
   // Quick Update
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
-  if (isOpen) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "auto";
-  }
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
 
-  return () => {
-    document.body.style.overflow = "auto";
-  };
-}, [isOpen]);
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
   const [productId, setID] = useState(null);
   return (
     <div className="flex">
@@ -183,8 +183,8 @@ function Products() {
 
           <div
             className={`overflow-hidden transition-all duration-300 ease-in-out ${isFilterOpen
-                ? "max-h-96 opacity-100 mt-5"
-                : "max-h-0 opacity-0"
+              ? "max-h-96 opacity-100 mt-5"
+              : "max-h-0 opacity-0"
               }`}
           >
             <div className="flex max-md:flex-col items-center gap-3">
@@ -238,12 +238,27 @@ function Products() {
         <div className="mt-5 bg-white dark:bg-gray-900 p-8 rounded-xl border border-gray-200 dark:border-gray-700">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             {selectProducts.loading ? (
-              ".."
+              <div className="col-span-full flex flex-col items-center justify-center py-20 gap-4">
+                <div className="relative w-20 h-20">
+                  <div className="absolute inset-0 rounded-full border-4 border-slate-700"></div>
+                  <div className="absolute inset-0 rounded-full border-4 border-t-cyan-500 border-transparent animate-spin"></div>
+                  <div className="absolute inset-3 rounded-full bg-cyan-500"></div>
+                </div>
+
+                <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
+                  Loading...
+                </h2>
+
+                <p className="text-gray-500">
+                  Please wait while we fetch the data.
+                </p>
+              </div>
             ) : products?.length > 0 ? (
               products.map((product) => (
                 <div key={product._id}>
                   <Card
                     product={product}
+                    onDelete={(id) => setProduct(prev => prev.filter(item => item._id !== id))}
                     onQuickUpdate={() => {
                       setID(product._id);
                       setIsOpen(true);

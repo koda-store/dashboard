@@ -2,30 +2,33 @@ import { ArrowBigLeft, Eye, Image, ImagePlus, SquareKanban, Trash2, X } from "lu
 import SideBar from "../components/ui/SideBar"
 import { useNavigate, useParams } from "react-router-dom"
 import { callProduct } from "../redux/callApi";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+
 const AddProduct = () => {
+  const dispatch = useDispatch();
   const [product, setProduct] = useState({
     name: "",
     brand: "",
     price: "",
-    discount: "",
-    discription: "",
-    shortDiscription: "",
+    discountPrice: 0,
+    description: "",
+    shortDescription: "",
     category: "",
     subcategory: "",
-    featured: 0,
-    active: 0,
+    featured: false,
+    isActive: false,
     sku: "",
-    stoct: "",
+    stock: 0,
   });
 
   const tagRef = useRef(null)
   const [tags, setTags] = useState([])
-  const [image, setImage] = useState([]);
+  const [images, setImage] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -58,28 +61,57 @@ const AddProduct = () => {
     const files = Array.from(e.target.files);
 
     const selectedImages = files.map((file) => ({
-      public_id: URL.createObjectURL(file),
+      file,
       url: URL.createObjectURL(file),
     }));
-    setImage((prev) => {
-      return [...prev, ...selectedImages];
-    });
+
+    setImage((prev) => [...prev, ...selectedImages]);
   };
 
   const navigate = useNavigate();
-
   const createProduct = async () => {
+    // ======== Check inputs is Empty? ========
+    const isValid = Object.values(product).every((value) => {
+      if (typeof value === "string") return value.trim() !== "";
+      return value !== null && value !== undefined;
+    });
+
+    if (!isValid || images.length === 0) {
+      return toast.error("All fields are required");
+    }
+    // ========================================
+    setLoading(true);
     try {
-      const data = { ...product, image, tags }
-      const token = '';
-      const req = await axios.patch(`https://e-commerce-api-3wara.vercel.app/products`, data, {
+      const formData = new FormData();
+
+      Object.entries(product).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+
+
+      images.forEach((img) => {
+        formData.append("images", img.file);
+      });
+
+      if (tags) {
+        tags.forEach((tag) => {
+          formData.append("tags", tag);
+        });
+      }
+      const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDNjYmQ0MzMwYTZjN2ZkYWZlOTc1ZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4MzY5MjUyMSwiZXhwIjoxNzg0MTI0NTIxfQ.R_56JGHqS45xRPLbH-y_wqCIfGtBnbVGQ42PY2jBjos';
+      const req = await axios.post(`https://e-commerce-api-3wara.vercel.app/products`, formData, {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         }
       })
-      toast.success("Product Created Successfully");
+      dispatch(callProduct())
+      navigate('/products')
+      return toast.success("Product Created Successfully");
     } catch (error) {
-      toast.error("Failed to Create product");
+      console.log(error.response.data);
+      return toast.error("Failed to Create product");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -136,7 +168,7 @@ const AddProduct = () => {
 
             <div className="mt-5">
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-5">
-                {image.map((item, index) => (
+                {images.map((item, index) => (
                   <div
                     key={index}
                     className="relative rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700"
@@ -210,9 +242,9 @@ const AddProduct = () => {
 
                   <input
                     onChange={handleChange}
-                    name="shortDiscription"
+                    name="shortDescription"
                     type="text"
-                    value={product.shortDiscription ?? ''}
+                    value={product.shortDescription ?? ''}
                     placeholder="Short description..."
                     className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:bg-white dark:focus:bg-gray-800"
                   />
@@ -225,8 +257,8 @@ const AddProduct = () => {
 
                   <textarea
                     onChange={handleChange}
-                    name="discription"
-                    value={product.discription ?? ''}
+                    name="description"
+                    value={product.description ?? ''}
                     rows={6}
                     placeholder="Product description..."
                     className="w-full resize-none rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:bg-white dark:focus:bg-gray-800"
@@ -250,13 +282,13 @@ const AddProduct = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Discount Price
+                      discount Price
                     </label>
 
                     <input
                       onChange={handleChange}
-                      value={product.discount ?? ""}
-                      name="discount"
+                      value={product.discountPrice ?? ""}
+                      name="discountPrice"
                       type="number"
                       className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none focus:border-cyan-500 dark:focus:bg-gray-800"
                     />
@@ -404,14 +436,14 @@ const AddProduct = () => {
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
                       onChange={handleChange}
-                      name="active"
-                      checked={product.active ?? false}
+                      name="isActive"
+                      checked={product.isActive ?? false}
                       type="checkbox"
                       className="w-4 h-4 accent-cyan-600"
                     />
 
                     <span className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                      Active
+                      active
                     </span>
                   </label>
                 </div>
@@ -428,10 +460,14 @@ const AddProduct = () => {
 
                   <button
                     onClick={createProduct}
-                    type="submit"
-                    className="rounded-xl bg-cyan-500 px-6 py-2 font-medium text-white hover:bg-cyan-400 transition cursor-pointer"
+                    disabled={loading}
+                    className={`rounded-xl px-6 py-2 font-medium text-white transition
+                       ${loading
+                        ? "bg-cyan-300 cursor-not-allowed"
+                        : "bg-cyan-500 hover:bg-cyan-400 cursor-pointer"
+                      }`}
                   >
-                    Add
+                    {loading ? "Adding..." : "Add"}
                   </button>
 
                 </div>

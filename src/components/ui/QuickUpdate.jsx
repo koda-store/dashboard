@@ -12,20 +12,24 @@ const QuickUpdate = ({ id, onClose }) => {
         name: "",
         brand: "",
         price: "",
-        discount: "",
-        discription: "",
-        shortDiscription: "",
+        discountPrice: "",
+        description: "",
+        shortDescription: "",
         category: "",
         subcategory: "",
         featured: 0,
-        active: 0,
+        isActive: 0,
         sku: "",
-        stoct: "",
+        stock: "",
     });
 
     const tagRef = useRef(null)
     const [tags, setTags] = useState([])
-    const [image, setImage] = useState([]);
+    const [images, setImage] = useState([]);
+    const [oldImages, setOldImage] = useState([]);
+    const [deletedImages, setDeletedImages] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const allImage = [...oldImages, ...images]
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -58,7 +62,7 @@ const QuickUpdate = ({ id, onClose }) => {
         const files = Array.from(e.target.files);
 
         const selectedImages = files.map((file) => ({
-            public_id: URL.createObjectURL(file),
+            file,
             url: URL.createObjectURL(file),
         }));
         setImage((prev) => {
@@ -85,18 +89,18 @@ const QuickUpdate = ({ id, onClose }) => {
     useEffect(() => {
         if (currentProduct) {
             setTags(currentProduct.tags);
-            setImage(currentProduct.images)
+            setOldImage(currentProduct.images)
             setProduct({
                 name: currentProduct.name,
                 brand: currentProduct.brand,
                 price: currentProduct.price,
-                discount: currentProduct.discountPrice,
-                discription: currentProduct.description,
-                shortDiscription: currentProduct.shortDescription,
+                discountPrice: currentProduct.discountPrice,
+                description: currentProduct.description,
+                shortDescription: currentProduct.shortDescription,
                 category: currentProduct.category,
                 subcategory: currentProduct.subcategory,
                 featured: currentProduct.featured,
-                active: currentProduct.isActive,
+                isActive: currentProduct.isActive,
                 stock: currentProduct.stock,
                 sku: currentProduct.sku,
             })
@@ -104,18 +108,53 @@ const QuickUpdate = ({ id, onClose }) => {
     }, [currentProduct, id]);
 
     const updateProduct = async (id) => {
+        // ============= check Inputs isEmpty?? ============
+        const isValid = Object.values(product).every((value) => {
+            if (typeof value === "string") return value.trim() !== "";
+            return value !== null && value !== undefined;
+        });
+
+        if (!isValid) {
+            return toast.error("All fields are required");
+        }
+        // ================================================
+        setLoading(true);
+
         try {
-            const data = { ...product, image, tags }
-            const token = '';
-            const req = await axios.patch(`https://e-commerce-api-3wara.vercel.app/products/update/${id}`, data, {
+            const formData = new FormData();
+
+            Object.entries(product).forEach(([key, value]) => {
+                formData.append(key, value);
+            });
+
+            // new Image
+            images.forEach((img) => {
+                formData.append("images", img.file);
+            });
+
+            // delete from old image
+            formData.append("deletedImages", JSON.stringify(deletedImages));
+
+            if (tags) {
+                tags.forEach((tag) => {
+                    formData.append("tags", tag);
+                });
+            }
+
+            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDNjYmQ0MzMwYTZjN2ZkYWZlOTc1ZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4MzcxODA3NSwiZXhwIjoxNzg0MTUwMDc1fQ.UbrE_BGBdqspwbUWWpn1fkdmxphUS2ahcXo6af2z7oo'
+            const req = await axios.patch(`https://e-commerce-api-3wara.vercel.app/products/update/${id}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
-            toast.success("Product Updated Successfully");
+            dispatch(callProduct())
             onClose()
+            return toast.success("Product Updated Successfully");
         } catch (error) {
-            toast.error("Failed to update product");
+            console.log(error.response.data)
+            return toast.error("Failed to update product");
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -149,7 +188,7 @@ const QuickUpdate = ({ id, onClose }) => {
 
                         <div className="mt-5">
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-5">
-                                {image.map((item, index) => (
+                                {allImage.map((item, index) => (
                                     <div
                                         key={index}
                                         className="relative rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700"
@@ -162,9 +201,20 @@ const QuickUpdate = ({ id, onClose }) => {
 
                                         <button
                                             type="button"
-                                            onClick={() =>
-                                                setImage((prev) => prev.filter((_, i) => i !== index))
-                                            }
+                                            onClick={(e) => {
+                                                // if new image
+                                                if (item.file) {
+                                                    setImage(prev =>
+                                                        prev.filter((_, i) => i !== index)
+                                                    );
+                                                } else {
+                                                    // old Image
+                                                    setDeletedImages(prev => [...prev, item.public_id]);
+                                                    setOldImage(prev =>
+                                                        prev.filter(img => img.public_id !== item.public_id)
+                                                    );
+                                                }
+                                            }}
                                             className="cursor-pointer absolute top-2 right-2 flex items-center justify-center w-7 h-7 rounded-md bg-red-500 text-white hover:bg-red-600 transition"
                                         >
                                             <Trash2 size={17} />
@@ -223,9 +273,9 @@ const QuickUpdate = ({ id, onClose }) => {
 
                                     <input
                                         onChange={handleChange}
-                                        name="shortDiscription"
+                                        name="shortDescription"
                                         type="text"
-                                        value={product.shortDiscription ?? ""}
+                                        value={product.shortDescription ?? ""}
                                         placeholder="Short description..."
                                         className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:bg-white dark:focus:bg-gray-800"
                                     />
@@ -233,13 +283,13 @@ const QuickUpdate = ({ id, onClose }) => {
 
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                        Description
+                                        discription
                                     </label>
 
                                     <textarea
                                         onChange={handleChange}
-                                        name="discription"
-                                        value={product.discription ?? ""}
+                                        name="description"
+                                        value={product.description ?? ""}
                                         rows={6}
                                         placeholder="Product description..."
                                         className="w-full resize-none rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:bg-white dark:focus:bg-gray-800"
@@ -268,8 +318,8 @@ const QuickUpdate = ({ id, onClose }) => {
 
                                         <input
                                             onChange={handleChange}
-                                            value={product.discount ?? ""}
-                                            name="discount"
+                                            value={product.discountPrice ?? ""}
+                                            name="discountPrice"
                                             type="number"
                                             className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-3 text-sm outline-none focus:border-cyan-500"
                                         />
@@ -440,9 +490,14 @@ const QuickUpdate = ({ id, onClose }) => {
                                     <button
                                         onClick={() => updateProduct(id)}
                                         type="submit"
-                                        className="rounded-xl bg-cyan-500 px-6 py-2 font-medium text-white hover:bg-cyan-400 transition cursor-pointer"
+                                        disabled={loading}
+                                        className={`rounded-xl px-6 py-2 font-medium text-white transition
+                                            ${loading
+                                                ? "bg-cyan-300 cursor-not-allowed"
+                                                : "bg-cyan-500 hover:bg-cyan-400 cursor-pointer"
+                                            }`}
                                     >
-                                        Save Changes
+                                        {loading ? "Saving..." : "Save"}
                                     </button>
                                 </div>
 
