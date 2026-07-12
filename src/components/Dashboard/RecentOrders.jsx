@@ -57,8 +57,7 @@ function RecentOrders() {
   };
   if (error) {
     return (
-      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-red-200 p-6">
-        <h3 className="text-xl font-semibold mb-2">Recent Orders</h3>
+      <div className="bg-white  dark:bg-slate-900 dark:border-red-500/20 rounded-2xl shadow-xl border border-red-200 p-6">
         <p className="text-center text-red-500">{error}</p>
       </div>
     );

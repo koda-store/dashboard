@@ -465,8 +465,8 @@ const QuickUpdate = ({ id, onClose }) => {
                                     <label className="flex items-center gap-2 cursor-pointer">
                                         <input
                                             onChange={handleChange}
-                                            name="active"
-                                            checked={product.active ?? false}
+                                            name="isActive"
+                                            checked={product.isActive ?? false}
                                             type="checkbox"
                                             className="w-4 h-4 accent-cyan-600"
                                         />

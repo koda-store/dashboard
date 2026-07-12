@@ -1,7 +1,4 @@
 @import "tailwindcss";
-*{
-  @apply transition
-}
 .menu{
   transition: all 0.2s;
 }
