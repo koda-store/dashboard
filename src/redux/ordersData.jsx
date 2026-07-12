@@ -1,4 +1,3 @@
-// ordersData.jsx
 export const mockOrders = [
   {
     _id: "B0127384",

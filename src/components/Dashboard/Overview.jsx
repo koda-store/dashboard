@@ -1,12 +1,8 @@
 import React from "react";
 
-
-
 function Overview() {
   return (
-    <section className="mt-2">
-    
-        {/* Header */}
+    <section className = "mt-2">
         <div
           className="
             bg-white

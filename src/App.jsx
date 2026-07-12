@@ -41,6 +41,7 @@ import { ToastContainer } from "react-toastify";
 import User from "./pages/User";
 import Login from "./pages/Login";
 import Orders from "./pages/Orders";
+import OrderDetails from "./pages/Orders/OrderDetails";
 import Customers from "./pages/Customers";
 import Carts from "./pages/Carts";
 import Settings from "./pages/Settings";
@@ -67,23 +68,22 @@ function App() {
       {location.pathname !== "/login" && <NavBar themes={'light'} setThemes={() => setThemes(prev => prev === 'light' ? 'dark' : 'light')} />}
 
       <Routes>
-        {/* <Route path="/login" element={<Login />} /> */}
+        <Route path="/login" element={<Login />} />
 
         <Route element={<DashboardLayout />}>
           <Route index element={<Home />} />
           <Route path="/user" element={<User />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/orders/:id" element={<OrderDetails />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/product/:id" element={<Product />} />
-          <Route path="/edite/:id" element={<Edite />} />
           <Route path="/AddProduct" element={<AddProduct />} />
           <Route path="/Carts" element={<Carts />} />
           <Route path="/settings" element={<Settings />} />
-          {/* <Route path="/loading" element={<Loading />} /> */}
+          <Route path="/loading" element={<Loading />} />
         </Route>
 
-        <Route path="*" element={< Loading />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       <ToastContainer
@@ -97,5 +97,3 @@ function App() {
 }
 
 export default App;
-
-

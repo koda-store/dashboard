@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../../api/axios";
 
-
-
 function RecentOrders() {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState("");
@@ -92,11 +90,11 @@ function RecentOrders() {
           key={order._id}
           className="flex justify-between items-center bg-blue-50 dark:bg-blue-800/20 border border-blue-200 dark:border-blue-900 p-4 rounded-xl shadow-sm my-4 hover:shadow-md">
           <div>
-            <h5 className="font-semibold">
+            <h5 className="font-sm dark:text-white">
               {order.user?.username || "Customer"}
             </h5>
 
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-500 text-sm dark:text-gray-400 ">
               {order.items?.[0]?.name || "No Product"} • {" "}
               {formatDate(order.createdAt)}
             </p>

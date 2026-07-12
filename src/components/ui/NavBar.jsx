@@ -3,6 +3,8 @@ import url_Light from "../../Logo_Light_mode.png";
 import { Bell, Moon, LogOut, Sun, User2 } from "lucide-react";
 import { useContext, useState } from "react";
 import { useSidebar } from "../../context/SidebarContext";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = ({ themes, setThemes }) => {
   const { isCollapsed } = useSidebar();

@@ -9,9 +9,10 @@ const SideBar = () => {
   const { isCollapsed, toggleCollapsed } = useSidebar();
 
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
-      {/* زر الموبايل */}
+      {/* Mobile Button */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}

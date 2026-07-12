@@ -61,9 +61,6 @@ const StatCard = ({
   );
 };
 
-/* ===========================
-   Main Component
-=========================== */
 
 function StatsCards() {
   const [dashboard, setDashboard] = useState(null);
