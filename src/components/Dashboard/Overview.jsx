@@ -2,7 +2,7 @@ import React from "react";
 
 function Overview() {
   return (
-    <section className = "mt-2">
+    <section className = "mt-10">
         <div
           className="
             bg-white
