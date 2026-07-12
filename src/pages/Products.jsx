@@ -119,7 +119,7 @@ function Products() {
               </p>
 
               <h1 className="font-bold text-xl sm:text-3xl text-cyan-950 dark:text-white">
-                Product
+                Products
               </h1>
             </div>
           </div>

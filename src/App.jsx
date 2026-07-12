@@ -8,10 +8,10 @@
 // const App = () => {
 //   return (
 //     <Routes>
-    
+
 //       <Route path="/login" element={<Login />} />
 
-      
+
 //       <Route 
 //         path="/*" 
 //         element={
@@ -20,12 +20,12 @@
 //             <Sidebar />
 
 //             <div className="flex-1 lg:pl-64 flex flex-col min-w-0 relative">
-              
-            
+
+
 //               <div className="sticky top-0 z-50 bg-white shadow-xs">
 //                 <Navbar />
 //               </div>
-            
+
 //               <div className="p-4 md:p-6 lg:p-8 flex-1 pt-6 mt-20 relative z-10">
 //                 <Routes>
 //                   <Route path="/" element={<Navigate to="/orders" replace />} />
@@ -53,13 +53,18 @@ import DashboardLayout from "./layout/dashboardcontext";
 import NavBar from "./components/ui/NavBar";
 import Product from "./pages/Product"
 import Edite from "./pages/Edite"
+import { useEffect, useState } from "react";
 
 function App() {
   const location = useLocation();
+  const [themes, setThemes] = useState('light');
+  useEffect(() => {
+    document.body.className = themes;
+  }, [themes]);
 
   return (
     <>
-      {location.pathname !== "/login" && <NavBar />}
+      {location.pathname !== "/login" && <NavBar themes={'light'} setThemes={() => setThemes(prev => prev === 'light' ? 'dark' : 'light')} />}
 
       <Routes>
         {/* <Route path="/login" element={<Login />} /> */}

@@ -1,4 +1,10 @@
 @import "tailwindcss";
+*{
+  @apply transition
+}
+.menu{
+  transition: all 0.2s;
+}
 @custom-variant dark (&:where(.dark, .dark *));
 @keyframes fadeUp {
   from {
