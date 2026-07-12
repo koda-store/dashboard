@@ -49,9 +49,9 @@ const [error, setError] = useState("");
 };
 if (error) {
   return (
-    <div className="bg-white dark:bg-slate-900 dark:border-red-200/50 rounded-2xl shadow-xl border border-red-200 p-6">
-      <p className="text-red-500 text-center">{error}</p>
-    </div>
+    <div className="bg-white dark:bg-slate-900 dark:border-red-500/20 rounded-2xl shadow-xl border border-red-200 p-6">
+        <p className="text-center text-red-500">{error}</p>
+      </div>
   );
 }
   return (

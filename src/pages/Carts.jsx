@@ -6,7 +6,7 @@ function Carts() {
         className="
           flex-1
           mt-10
-          bg-transparent
+          bg-transparent 
         "
       >
         {/* Header */}

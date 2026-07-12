@@ -34,9 +34,9 @@ const Product = () => {
 
     return (
         <div className="flex">
-            <div className="mt-10 bg-gray-100 dark:bg-gray-950 p-3 md:p-5 flex-1">
+            <div className="mt-10 flex-1">
                 {/* Header */}
-                <div className="rounded-xl bg-gray-950 dark:bg-gray-900 p-4 md:p-8">
+                <div className="rounded-xl bg-gray-950  p-4 md:p-8">
                     <button
                         onClick={() => navigate("/products")}
                         className="flex cursor-pointer items-center gap-2 rounded bg-gray-200/10 px-3 py-2 text-sm text-gray-300 transition hover:text-white"

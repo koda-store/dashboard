@@ -10,7 +10,7 @@ function Home() {
   }, []);
   return (
     <div className="flex bg-transparent">
-      <div className="flex-1 p-4  md:pt-8">
+      <div className="flex-1">
           <Dashboard />
       </div>
     </div>

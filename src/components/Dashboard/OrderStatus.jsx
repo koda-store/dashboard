@@ -77,7 +77,7 @@ function OrderStatus() {
   ];
   if (error) {
     return (
-      <div className="bg-white  dark:bg-slate-900 dark:border-red-500/20 rounded-2xl shadow-xl border border-red-200 p-6">
+      <div className="bg-white  dark:bg-slate-900 mt-5 dark:border-red-500/20 rounded-2xl shadow-xl border border-red-200 p-6">
         <p className="text-center text-red-500">{error}</p>
       </div>
     );
