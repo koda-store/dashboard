@@ -1,6 +1,6 @@
 
 import { createSlice } from "@reduxjs/toolkit";
-import { callProduct } from "./callApi";
+import { callOrder, callProduct } from "./callApi";
 
 // هنا بنعرف الـ async action
 
@@ -35,4 +35,34 @@ const productSlice = createSlice({
     }
 });
 
+const orderSlice = createSlice({
+    name: "orders",
+    initialState: {
+        orders: [],
+        loading: true,
+        error: null,
+    },
+    reducers: {
+
+    },
+    extraReducers: (builder) => {
+        /* pending */
+        builder.addCase(callOrder.pending, (state) => {
+            state.loading = true;
+        })
+        /* fulfilled */
+        builder.addCase(callOrder.fulfilled, (state, action) => {
+            state.loading = false;
+            state.orders = action.payload;
+            state.error = null;
+        })
+        /* rejected */
+        builder.addCase(callOrder.rejected, (state, action) => {
+            state.loading = false;
+            state.orders = [];
+            state.error = action.payload || action.error.message;
+        })
+    }
+});
 export const productFunction = productSlice.reducer
+export const orderFunction = orderSlice.reducer

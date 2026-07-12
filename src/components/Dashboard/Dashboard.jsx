@@ -8,16 +8,14 @@ import Overview from "./Overview";
 
 function Dashboard() {
   return (
-
-    <div className=" fade-up ">
-   <Overview/>
-
+    <div className=" fade-up w-full bg-transparent">
+      <Overview />
       <StatsCards />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 ">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 ">
         <OrderStatus />
         <TopProducts />
       </div>
-      <div className="mt-6">
+      <div className="mt-7">
         <RecentOrders />
       </div>
     </div>

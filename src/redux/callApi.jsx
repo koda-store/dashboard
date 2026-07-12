@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { mockOrders } from './ordersData';
 
 
 /* call products */
@@ -9,3 +10,18 @@ export const callProduct = createAsyncThunk("product/callProduct", async () => {
     );
     return response.data;
 });
+/* call Order */
+export const callOrder = createAsyncThunk(
+    "orders/callOrder",
+    async () => {
+        try {
+            const response = await axios.get(
+                "https://e-commerce-api-3wara.vercel.app/api/v1/orders"
+            );
+
+            return response.data;
+        } catch (err) {
+            return mockOrders;
+        }
+    }
+);

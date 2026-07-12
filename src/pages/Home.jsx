@@ -4,16 +4,13 @@ import Sidebar from "../components/ui/SideBar";
 import NavBar from "../components/ui/NavBar";
 import { useEffect } from "react";
 
-
-
 function Home() {
     useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div className="flex  dark:bg-slate-900">
-     
-      <div className="flex-1   md:pt-4">
+    <div className="flex bg-transparent">
+      <div className="flex-1 p-4  md:pt-8">
           <Dashboard />
       </div>
     </div>

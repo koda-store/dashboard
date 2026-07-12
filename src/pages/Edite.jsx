@@ -159,7 +159,7 @@ const Edite = () => {
   }
   return (
     <div className="flex">
-      <div className="min-h-screen mt-10 flex-1 bg-gray-100 dark:bg-gray-950 p-3 md:p-5">
+      <div className="min-h-screen mt-10 flex-1 bg-gray-100 dark:bg-gray-900 p-3 md:p-5">
         <div className="rounded-xl bg-gray-950 dark:bg-gray-900 p-4 md:p-8">
           <button
             onClick={() => navigate("/products")}
@@ -238,7 +238,7 @@ const Edite = () => {
                           );
                         }
                       }}
-                      className="cursor-pointer absolute top-2 right-2 flex items-center justify-center w-7 h-7 rounded-md bg-red-500 text-white hover:bg-red-600 transition"
+                      className="cursor-pointer absolute top-2 right-2 flex items-center justify-center w-7 h-7 rounded-md bg-red-500 text-white hover:bg-red-600"
                     >
                       <Trash2 size={17} />
                     </button>
@@ -248,7 +248,7 @@ const Edite = () => {
             </div>
 
             <div className="mt-5">
-              <label className="flex h-35 w-full cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 transition hover:border-cyan-500 hover:bg-cyan-50 dark:hover:bg-cyan-950/30">
+              <label className="flex h-35 w-full cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 hover:bg-cyan-50 dark:hover:bg-cyan-950/30">
                 <ImagePlus size={40} className="text-gray-400 dark:text-gray-500" />
 
                 <p className="mt-3 font-medium text-gray-700 dark:text-white">
@@ -284,7 +284,7 @@ const Edite = () => {
                     type="text"
                     value={product.name ?? ""}
                     placeholder="MacBook Pro 14-inch"
-                    className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:bg-white dark:focus:bg-gray-800"
+                    className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none  focus:border-cyan-500 focus:bg-white dark:focus:bg-gray-800"
                   />
                 </div>
 
@@ -299,7 +299,7 @@ const Edite = () => {
                     type="text"
                     value={product.shortDescription ?? ""}
                     placeholder="Short description..."
-                    className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:bg-white dark:focus:bg-gray-800"
+                    className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none focus:border-cyan-500 focus:bg-white dark:focus:bg-gray-800"
                   />
                 </div>
 
@@ -314,7 +314,7 @@ const Edite = () => {
                     value={product.description ?? ""}
                     rows={6}
                     placeholder="Product description..."
-                    className="w-full resize-none rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:bg-white dark:focus:bg-gray-800"
+                    className="w-full resize-none rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 py-3 text-sm outline-none focus:border-cyan-500 focus:bg-white dark:focus:bg-gray-800"
                   />
                 </div>
 
@@ -489,7 +489,7 @@ const Edite = () => {
                     <input
                       onChange={handleChange}
                       name="isActive"
-                      checked={product.active ?? false}
+                      checked={product.isActive ?? false}
                       type="checkbox"
                       className="w-4 h-4 accent-cyan-600"
                     />
