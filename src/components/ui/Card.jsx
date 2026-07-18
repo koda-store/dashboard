@@ -10,7 +10,8 @@ function Card({ product, onQuickUpdate, onDelete }) {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate();
   const deleteProduct = async (id) => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDNjYmQ0MzMwYTZjN2ZkYWZlOTc1ZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4MzY5MjUyMSwiZXhwIjoxNzg0MTI0NTIxfQ.R_56JGHqS45xRPLbH-y_wqCIfGtBnbVGQ42PY2jBjos';
+const token = localStorage.getItem("dashboard-token");
+    // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDNjYmQ0MzMwYTZjN2ZkYWZlOTc1ZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4MzY5MjUyMSwiZXhwIjoxNzg0MTI0NTIxfQ.R_56JGHqS45xRPLbH-y_wqCIfGtBnbVGQ42PY2jBjos';
     setLoading(true)
     try {
       const req = await axios.delete(

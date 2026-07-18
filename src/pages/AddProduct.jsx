@@ -1,5 +1,4 @@
 import { ArrowBigLeft, Eye, Image, ImagePlus, SquareKanban, Trash2, X } from "lucide-react"
-import SideBar from "../components/ui/SideBar"
 import { useNavigate, useParams } from "react-router-dom"
 import { callProduct } from "../redux/callApi";
 import { useDispatch } from "react-redux";
@@ -75,10 +74,20 @@ const AddProduct = () => {
       if (typeof value === "string") return value.trim() !== "";
       return value !== null && value !== undefined;
     });
+    
 
     if (!isValid || images.length === 0) {
       return toast.error("All fields are required");
     }
+    const emptyFields = Object.entries(product).filter(([key, value]) => {
+  if (typeof value === "string") return value.trim() === "";
+  return value === null || value === undefined;
+});
+
+if (emptyFields.length > 0 || images.length === 0) {
+  console.log("Missing fields:", emptyFields.map(([key]) => key));
+  return toast.error(`الحقول الفاضية: ${emptyFields.map(([key]) => key).join(", ")}`);
+}
     // ========================================
     setLoading(true);
     try {
@@ -98,7 +107,10 @@ const AddProduct = () => {
           formData.append("tags", tag);
         });
       }
-      const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDNjYmQ0MzMwYTZjN2ZkYWZlOTc1ZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4MzY5MjUyMSwiZXhwIjoxNzg0MTI0NTIxfQ.R_56JGHqS45xRPLbH-y_wqCIfGtBnbVGQ42PY2jBjos';
+      // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDNjYmQ0MzMwYTZjN2ZkYWZlOTc1ZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4MzY5MjUyMSwiZXhwIjoxNzg0MTI0NTIxfQ.R_56JGHqS45xRPLbH-y_wqCIfGtBnbVGQ42PY2jBjos';
+     
+      const token = localStorage.getItem("dashboard-token");
+      console.log(localStorage.getItem("dashboard-token"));
       const req = await axios.post(`https://e-commerce-api-3wara.vercel.app/products`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -108,7 +120,11 @@ const AddProduct = () => {
       navigate('/products')
       return toast.success("Product Created Successfully");
     } catch (error) {
-      console.log(error.response.data);
+      // console.log(error.response.data);
+      
+  console.log("Status:", error.response?.status);
+  console.log("Data:", error.response?.data);
+  console.log("Headers:", error.response?.headers);
       return toast.error("Failed to Create product");
     } finally {
       setLoading(false);
@@ -340,6 +356,7 @@ const AddProduct = () => {
                       onChange={handleChange}
                       className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-3 text-sm outline-none focus:border-cyan-500"
                     >
+                    <option value="" disabled>Select a category</option>
                       <option>Electronics</option>
                       <option>Fashion</option>
                       <option>Sports</option>
