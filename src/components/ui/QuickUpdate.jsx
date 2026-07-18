@@ -141,7 +141,8 @@ const QuickUpdate = ({ id, onClose }) => {
                 });
             }
 
-            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDNjYmQ0MzMwYTZjN2ZkYWZlOTc1ZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4MzcxODA3NSwiZXhwIjoxNzg0MTUwMDc1fQ.UbrE_BGBdqspwbUWWpn1fkdmxphUS2ahcXo6af2z7oo'
+            const token = localStorage.getItem("dashboard-token");
+
             const req = await axios.patch(`https://e-commerce-api-3wara.vercel.app/products/update/${id}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`
