@@ -28,7 +28,10 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
 
     try {
+      // const data = await login(email, password);
       const data = await login(email, password);
+
+console.log(data);
 
       localStorage.setItem("dashboard-token", data.token);
       setUser(data.user);
