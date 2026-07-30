@@ -1,4 +1,4 @@
-import api from "./api";
+import {api} from "../api/axios";
 
 export const getAdminOrders = async (page = 1, limit = 20) => {
   const res = await api.get(
@@ -16,3 +16,4 @@ export const updateOrderStatus = async (id, status) => {
   const res = await api.patch(`/orders/admin/${id}/status`, { status });
   return res.data;
 };
+
