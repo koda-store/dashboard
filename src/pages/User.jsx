@@ -1,3 +1,5 @@
+
+
 import { api } from "../api/axios";
 import React, { useState, useEffect } from "react";
 import {
@@ -297,7 +299,7 @@ function User() {
         </form>
       )}
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div className="bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-700 p-4 rounded-xl flex justify-between items-center shadow-md hover:shadow-lg transition-shadow">
           <div>
             <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">Total Users</p>
@@ -342,8 +344,8 @@ function User() {
         </div>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-md mb-8">
-        <div className="overflow-x-auto">
+  <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-md mb-8">
+        <div className="w-full overflow-x-auto">
           {loading ? (
             <div className="col-span-full flex flex-col items-center justify-center py-20 gap-4">
               <div className="relative w-20 h-20">
@@ -374,7 +376,7 @@ function User() {
               </div>
             </div>
           ) : (
-            <table className="w-full text-left border-collapse">
+             <table className="w-full min-w-max text-left border-collapse">
               <thead>
                 <tr className="border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-[11px] font-semibold uppercase bg-slate-50/80 dark:bg-slate-800/70">
                   <th className="px-6 py-3.5">User</th>
@@ -415,7 +417,7 @@ function User() {
                         {user.role}
                       </span>
                     </td>
-                    <td className="px-6 py-3">
+                    <td className="px-3 md:px-4 lg:px-6 py-3" >
                       {user.isVerified ? (
                         <span className="text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1">
                           <FiCheck /> Verified
