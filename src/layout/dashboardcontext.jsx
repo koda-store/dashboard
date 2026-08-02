@@ -17,7 +17,7 @@ export default function DashboardLayout({themes,setThemes}) {
   }`}
 >
       
-        <NavBar themes={themes} setThemes={setThemes} />
+        <NavBar  />
 
         <main className="flex-1 w-full p-3 sm:p-4 lg:p-6 mt-10 overflow-x-hidden text-gray-900 dark:text-white">
           <Outlet />
