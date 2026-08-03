@@ -2,7 +2,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import User from "./pages/User";
 import Login from "./pages/Login";
-import Orders from "./pages/Orders";
+import Orders from "./pages/Orders/Orders";
 import OrderDetails from "./pages/Orders/OrderDetails";
 import Customers from "./pages/Customers";
 import Carts from "./pages/Carts";
