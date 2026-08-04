@@ -57,7 +57,7 @@ export default function Orders() {
       if (ordersList.length === 100) {
         try {
           const page2Data = await getAdminOrders(2, 100);
-          const page2Orders = page2Data.orders || page2Data.data || page2Data.cartItems || (Array.isArray(page2Data) ? page2Data : []);
+          const page2Orders = page2Data.orders || page2Data.data || page2Data.cartItems || (Array.isArray(page2Data) ? page2Orders : []);
           ordersList = [...ordersList, ...page2Orders];
         } catch (e) {
           console.log("No page 2 available");
@@ -111,7 +111,7 @@ export default function Orders() {
     return matchesSearch && matchesStatus && matchesPayment && matchesMethod;
   });
 
-  const itemsPerPage = 6;
+  const itemsPerPage = 15;
   const totalPages = Math.ceil(filteredOrders.length / itemsPerPage) || 1;
   
   const indexOfLastItem = page * itemsPerPage;
@@ -120,15 +120,23 @@ export default function Orders() {
 
   const getPaginationItems = () => {
     const pages = [];
-    if (totalPages <= 7) {
+    
+    if (totalPages <= 5) {
       for (let i = 1; i <= totalPages; i++) pages.push(i);
     } else {
-      if (page <= 4) {
-        pages.push(1, 2, 3, 4, 5, '...', totalPages);
-      } else if (page >= totalPages - 3) {
-        pages.push(1, '...', totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
-      } else {
-        pages.push(1, '...', page - 1, page, page + 1, '...', totalPages);
+      let startPage = Math.max(1, page - 2);
+      let endPage = Math.min(totalPages, startPage + 4);
+
+      if (endPage - startPage < 4) {
+        startPage = Math.max(1, endPage - 4);
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+      }
+
+      if (endPage < totalPages && !pages.includes(totalPages)) {
+        pages.push(totalPages);
       }
     }
     return pages;
@@ -149,7 +157,7 @@ export default function Orders() {
 
       <div className="flex items-center justify-between pb-2 border-b border-slate-200">
         <div>
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-mono">ADMIN - MANAGEMENT</p>
+          <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest"> ADMIN - MANAGEMENT </p>
           <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight mt-0.5">Orders</h2>
         </div>
         
@@ -210,10 +218,11 @@ export default function Orders() {
 
       <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden relative z-0">
         <div className="overflow-x-auto min-w-full">
-          <table className="w-full text-left border-collapse min-w-[700px]">
+          <table className="w-full text-left border-collapse min-w-[800px]">
             <thead>
               <tr className="bg-slate-50/80 text-slate-400 text-[11px] font-bold uppercase tracking-wider border-b border-slate-100">
-                <th className="py-3.5 px-4 pl-6">CUSTOMER</th>
+                <th className="py-3.5 px-4 pl-6">ORDER</th>
+                <th className="py-3.5 px-4">CUSTOMER</th>
                 <th className="py-3.5 px-4">PRODUCTS</th>
                 <th className="py-3.5 px-4">TOTAL</th>
                 <th className="py-3.5 px-4">STATUS</th>
@@ -224,7 +233,7 @@ export default function Orders() {
             <tbody className="divide-y divide-slate-100 text-xs font-medium text-slate-600">
               {currentOrdersToDisplay.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="p-16 text-center text-sm font-bold text-slate-400 bg-slate-50/20">No orders found.</td>
+                  <td colSpan="7" className="p-16 text-center text-sm font-bold text-slate-400 bg-slate-50/20">No orders found.</td>
                 </tr>
               ) : (
                 currentOrdersToDisplay.map((order) => {
@@ -234,13 +243,20 @@ export default function Orders() {
                   const itemsList = order.cartItems || order.items || order.orderItems || [];
                   const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(customerName)}&background=f1f5f9&color=475569`;
 
+                  const rawId = order.id || order._id || "N/A";
+                  const displayOrderId = rawId.length > 8 ? rawId.substring(rawId.length - 8).toUpperCase() : rawId.toUpperCase();
+
                   return (
                     <tr
                       key={order._id}
                       className="hover:bg-slate-50/80 transition-colors"
                     >
-          
-                      <td className="py-4 px-4 pl-6">
+                    
+                      <td className="py-4 px-4 pl-6 font-bold text-slate-800 tracking-wider font-mono">
+                        #{displayOrderId}
+                      </td>
+
+                      <td className="py-4 px-4">
                         <div className="flex items-center gap-3">
                           <img 
                             src={avatarUrl} 
@@ -317,8 +333,8 @@ export default function Orders() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-between p-4 border-t border-slate-100 text-xs text-slate-500 gap-3 bg-white">
-          <div className="font-medium text-slate-400">
-            Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, filteredOrders.length)} of {filteredOrders.length} results
+          <div className="font-semibold text-slate-600">
+            Page <span className="font-bold text-slate-900">{page}</span> of <span className="font-bold text-slate-900">{totalPages}</span>
           </div>
 
           {totalPages > 1 && (
@@ -326,33 +342,29 @@ export default function Orders() {
               <button 
                 disabled={page === 1} 
                 onClick={() => setPage((p) => Math.max(1, p - 1))} 
-                className="w-7 h-7 flex items-center justify-center rounded-lg border border-slate-200 hover:bg-slate-50 disabled:opacity-30 font-bold transition cursor-pointer text-slate-600"
+                className="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed font-medium transition cursor-pointer text-slate-400"
               >
                 &lt;
               </button>
 
               {getPaginationItems().map((item, idx) => (
-                typeof item === 'number' ? (
-                  <button 
-                    key={idx} 
-                    onClick={() => setPage(item)} 
-                    className={`w-7 h-7 rounded-lg flex items-center justify-center border text-xs font-bold transition cursor-pointer ${
-                      page === item 
-                        ? "bg-purple-600 text-white border-purple-600 shadow-2xs" 
-                        : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50"
-                    }`}
-                  >
-                    {item}
-                  </button>
-                ) : (
-                  <span key={idx} className="px-1 text-slate-400 font-bold">...</span>
-                )
+                <button 
+                  key={idx} 
+                  onClick={() => setPage(item)} 
+                  className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-semibold transition cursor-pointer ${
+                    page === item 
+                      ? "bg-blue-600 text-white font-bold shadow-xs" 
+                      : "bg-slate-50 hover:bg-slate-100 text-slate-600"
+                  }`}
+                >
+                  {item}
+                </button>
               ))}
 
               <button 
                 disabled={page === totalPages} 
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))} 
-                className="w-7 h-7 flex items-center justify-center rounded-lg border border-slate-200 hover:bg-slate-50 disabled:opacity-30 font-bold transition cursor-pointer text-slate-600"
+                className="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed font-medium transition cursor-pointer text-slate-400"
               >
                 &gt;
               </button>
@@ -375,3 +387,4 @@ export default function Orders() {
     </div>
   );
 }
+

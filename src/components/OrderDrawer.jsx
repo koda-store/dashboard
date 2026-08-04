@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { X, ChevronDown } from 'lucide-react';
 
 const statusStyles = {
@@ -26,100 +27,182 @@ export default function OrderDrawer({
   handleStatusSave,
   updating
 }) {
-  if (!isOpen || !selectedOrder) return null;
+  const [isVisible, setIsVisible] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsVisible(true);
+      setIsClosing(false);
+    } else {
+      setIsVisible(false);
+    }
+  }, [isOpen]);
+
+  const handleAnimatedClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsVisible(false);
+      setIsClosing(false);
+      onClose();
+    }, 400);
+  };
+
+  if (!isOpen && !isVisible) return null;
+
+  const itemsList = selectedOrder?.cartItems || selectedOrder?.items || selectedOrder?.orderItems || [];
+
+  const subtotal = itemsList.reduce((acc, item) => {
+    const price = item.price || item.product?.price || 0;
+    const qty = item.quantity || 1;
+    return acc + (price * qty);
+  }, 0);
+
+  const shipping = selectedOrder?.shippingPrice ?? selectedOrder?.shippingFee ?? 50;
+  const tax = selectedOrder?.taxPrice ?? (subtotal * 0.14);
+  const total = subtotal + shipping + tax;
 
   return (
-    <div className="fixed inset-0 bg-slate-900/30 backdrop-blur-xs z-50 flex justify-end">
-      <div className="w-full max-w-sm bg-white h-full shadow-2xl flex flex-col text-slate-700 text-xs border-l border-slate-100 relative overflow-y-auto">
-        
-        <div className="pt-6 p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50 sticky top-0 z-30">
+    <div 
+      onClick={handleAnimatedClose} 
+      className={`fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex justify-end transition-opacity duration-500 ease-out ${
+        isClosing || !isOpen ? "opacity-0 pointer-events-none" : "opacity-100"
+      }`}
+    >
+      <div 
+        onClick={(e) => e.stopPropagation()} 
+        className={`w-full max-w-[480px] bg-white h-full shadow-2xl flex flex-col text-slate-700 text-xs border-l border-slate-100 relative overflow-y-auto transform transition-transform duration-500 ease-out ${
+          isClosing || !isOpen ? "translate-x-full" : "translate-x-0"
+        }`}
+      >
+
+        <div className="pt-6 p-6 border-b border-slate-100 flex items-center justify-between bg-white sticky top-0 z-30">
           <div>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">ORDER DETAIL</p>
-            <h3 className="text-sm font-black text-slate-800 mt-0.5">#{selectedOrder._id ? selectedOrder._id.slice(-6).toUpperCase() : "N/A"}</h3>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-mono">ORDER DETAIL</p>
+            <h3 className="text-base font-extrabold text-slate-900 mt-0.5">
+              #{selectedOrder?._id ? selectedOrder._id.slice(-8).toUpperCase() : "N/A"}
+            </h3>
           </div>
-          <button onClick={onClose} className="p-2 rounded-xl bg-slate-200/60 hover:bg-slate-200 text-slate-700 cursor-pointer font-bold">
-            <X size={16} />
+          <button 
+            onClick={handleAnimatedClose} 
+            className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors cursor-pointer"
+          >
+            <X size={18} />
           </button>
         </div>
 
-        <div className="p-5 space-y-6 flex-1">
-          <div className="flex items-center gap-1.5 pb-2 border-b border-slate-100">
-            <span className={`inline-flex items-center font-bold px-2.5 py-0.5 rounded-full text-[10px] capitalize ${statusStyles[selectedOrder.status?.toLowerCase()] || "bg-slate-100"}`}>
-              {selectedOrder.status || "pending"}
+        <div className="p-6 space-y-7 flex-1">
+
+          <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
+            <span className={`inline-flex items-center font-bold px-3 py-1 rounded-full text-xs capitalize ${statusStyles[selectedOrder?.status?.toLowerCase()] || "bg-slate-100"}`}>
+              • {selectedOrder?.status || "pending"}
             </span>
-            <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-amber-200 uppercase">
-              {selectedOrder.paymentStatus || (selectedOrder.isPaid ? "PAID" : "PENDING")}
+            <span className="bg-amber-100/80 text-amber-800 text-[11px] font-bold px-3 py-1 rounded-full border border-amber-200/50 uppercase">
+              {selectedOrder?.paymentStatus || (selectedOrder?.isPaid ? "PAID" : "PENDING")}
             </span>
-            <span className="ml-auto text-slate-400 font-bold capitalize">
-              {selectedOrder.paymentMethod || selectedOrder.paymentMethodType || "Cash"}
+            <span className="ml-auto text-slate-400 font-medium text-xs capitalize">
+              {selectedOrder?.paymentMethod || selectedOrder?.paymentMethodType || "Cash"}
             </span>
           </div>
 
-          <div className="space-y-2 text-xs">
-            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">INFO</h4>
-            <div className="space-y-1.5 font-medium">
-              <div className="flex justify-between"><span className="text-slate-400">Placed</span><span>{selectedOrder.createdAt ? new Date(selectedOrder.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : "-"}</span></div>
-              <div className="flex justify-between"><span className="text-slate-400">Customer</span><span>{selectedOrder.shippingAddress?.fullName || selectedOrder.user?.name || "-"}</span></div>
-              <div className="flex justify-between"><span className="text-slate-400">Email</span><span>{selectedOrder.user?.email || selectedOrder.shippingAddress?.email || "-"}</span></div>
-              <div className="flex justify-between"><span className="text-slate-400">Ship to</span><span>{selectedOrder.shippingAddress?.city || selectedOrder.shippingAddress?.details || "Alexandria"}, Egypt</span></div>
+          <div className="space-y-3">
+            <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">INFO</h4>
+            <div className="overflow-hidden rounded-xl border border-slate-200/80 bg-slate-50/60 shadow-2xs">
+              <table className="w-full text-left text-xs border-collapse">
+                <tbody className="divide-y divide-slate-200/70">
+                  <tr className="hover:bg-slate-100/50 transition-colors">
+                    <td className="py-2.5 px-4 text-slate-500 font-medium w-1/3">Placed</td>
+                    <td className="py-2.5 px-4 font-semibold text-slate-900 text-right">
+                      {selectedOrder?.createdAt ? new Date(selectedOrder.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : "-"}
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-slate-100/50 transition-colors">
+                    <td className="py-2.5 px-4 text-slate-500 font-medium">Customer</td>
+                    <td className="py-2.5 px-4 font-semibold text-slate-900 text-right">
+                      {selectedOrder?.shippingAddress?.fullName || selectedOrder?.user?.name || "-"}
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-slate-100/50 transition-colors">
+                    <td className="py-2.5 px-4 text-slate-500 font-medium">Email</td>
+                    <td className="py-2.5 px-4 font-semibold text-slate-900 text-right truncate max-w-[200px]">
+                      {selectedOrder?.user?.email || selectedOrder?.shippingAddress?.email || "-"}
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-slate-100/50 transition-colors">
+                    <td className="py-2.5 px-4 text-slate-500 font-medium">Ship to</td>
+                    <td className="py-2.5 px-4 font-semibold text-slate-900 text-right">
+                      {selectedOrder?.shippingAddress?.city || selectedOrder?.shippingAddress?.details || "El Obour"}, Egypt
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
 
           <div className="space-y-3">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">ITEMS</p>
-            <div className="divide-y divide-slate-100 bg-slate-50/50 p-2 rounded-xl border border-slate-100">
-              {(selectedOrder.cartItems || selectedOrder.items || selectedOrder.orderItems || []).map((item, idx) => {
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">ITEMS</p>
+            <div className="divide-y divide-slate-100">
+              {itemsList.map((item, idx) => {
                 const title = item.product?.title || item.product?.name || item.name || "Product";
                 const image = item.product?.imageCover || item.product?.image || item.image || "https://via.placeholder.com/150";
                 const price = item.price || item.product?.price || 0;
+                const qty = item.quantity || 1;
 
                 return (
-                  <div key={idx} className="py-2.5 flex items-center justify-between gap-3">
+                  <div key={idx} className="py-3 flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3 min-w-0">
-                      <img src={image} alt={title} className="w-10 h-10 object-cover rounded-xl border border-slate-200 bg-white" />
+                      <img src={image} alt={title} className="w-12 h-12 object-cover rounded-xl border border-slate-100 bg-slate-50 flex-shrink-0" />
                       <div className="min-w-0">
-                        <p className="font-bold text-slate-800 leading-tight text-xs truncate">{title}</p>
-                        <p className="text-[10px] text-slate-400 mt-0.5">× {item.quantity || 1} · {Number(price).toFixed(2)} EGP</p>
+                        <p className="font-bold text-slate-800 text-xs truncate leading-snug">{title}</p>
+                        <p className="text-[11px] text-slate-400 mt-0.5">× {qty} · {Number(price).toFixed(2)} EGP</p>
                       </div>
                     </div>
-                    <span className="font-bold text-slate-800 text-xs">{(price * (item.quantity || 1)).toFixed(2)} EGP</span>
+                    <span className="font-bold text-slate-900 text-xs flex-shrink-0">{(price * qty).toFixed(2)} EGP</span>
                   </div>
                 );
               })}
             </div>
           </div>
 
-          <div className="bg-slate-50/50 border border-slate-200/60 p-4 rounded-xl space-y-2.5 text-[11px] font-semibold text-slate-600">
-            <div className="flex justify-between"><span>Subtotal</span><span>{(selectedOrder.totalOrderPrice || selectedOrder.totalPrice || 0).toFixed(2)} EGP</span></div>
-            <div className="flex justify-between"><span>Shipping</span><span>{selectedOrder.shippingPrice?.toFixed(2) || selectedOrder.shippingFee?.toFixed(2) || "0.00"} EGP</span></div>
-            <div className="flex justify-between items-center pt-2.5 border-t border-dashed border-slate-200 text-slate-800 font-black text-xs">
-              <span className="font-bold text-sm">Total</span><span className="text-sm text-purple-700">{(selectedOrder.totalOrderPrice || selectedOrder.totalPrice || 0).toFixed(2)} EGP</span>
+          <div className="pt-2 space-y-2.5 text-xs text-slate-600 font-medium">
+            <div className="flex justify-between"><span className="text-slate-400">Subtotal</span><span className="font-semibold text-slate-800">{Number(subtotal).toFixed(2)} EGP</span></div>
+            <div className="flex justify-between"><span className="text-slate-400">Shipping</span><span className="font-semibold text-slate-800">{Number(shipping).toFixed(2)} EGP</span></div>
+            <div className="flex justify-between"><span className="text-slate-400">Tax (14%)</span><span className="font-semibold text-slate-800">{Number(tax).toFixed(2)} EGP</span></div>
+            
+            <div className="flex justify-between items-center pt-3 border-t border-slate-100">
+              <span className="font-bold text-sm text-slate-900">Total</span>
+              <span className="text-sm font-black text-blue-600">{Number(total).toFixed(2)} EGP</span>
             </div>
           </div>
 
           <div className="pt-4 border-t border-slate-100 space-y-4">
             <div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">UPDATE STATUS</p>
+              <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">UPDATE STATUS</p>
               <div className="relative">
-                <select value={statusInput} onChange={(e) => setStatusInput(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 font-bold text-slate-700 appearance-none focus:outline-none text-[11px] cursor-pointer capitalize">
+                <select 
+                  value={statusInput} 
+                  onChange={(e) => setStatusInput(e.target.value)} 
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-semibold text-slate-800 appearance-none focus:outline-none focus:border-indigo-500 text-xs cursor-pointer capitalize"
+                >
                   {statusOptions.map(status => <option key={status} value={status}>{status}</option>)}
                 </select>
-                <ChevronDown size={14} className="absolute right-3 top-3.5 text-slate-400 pointer-events-none" />
+                <ChevronDown size={16} className="absolute right-4 top-3.5 text-slate-400 pointer-events-none" />
               </div>
             </div>
 
             <div>
-              <textarea value={adminNote} onChange={(e) => setAdminNote(e.target.value)} placeholder="Admin note (optional)..." className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 h-16 resize-none text-[11px] text-slate-700 focus:outline-none font-semibold" />
+              <textarea 
+                value={adminNote} 
+                onChange={(e) => setAdminNote(e.target.value)} 
+                placeholder="Admin note (optional)..." 
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 h-24 resize-none text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-indigo-500 font-medium leading-relaxed" 
+              />
             </div>
             
             <button 
               onClick={handleStatusSave} 
-              disabled={updating || statusInput === selectedOrder.status} 
-              className={`w-full font-bold py-3 rounded-xl text-[11px] uppercase tracking-wide transition-all cursor-pointer ${
-                statusInput !== selectedOrder.status
-                  ? "bg-purple-600 text-white hover:bg-purple-700 shadow-xs" 
-                  : "bg-slate-200 text-slate-400 cursor-not-allowed opacity-60"
-              }`}
+              disabled={updating} 
+              className="w-full font-bold py-3.5 rounded-xl text-xs bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider"
             >
               {updating ? 'Saving...' : 'Save changes'}
             </button>

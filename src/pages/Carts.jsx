@@ -1,87 +1,144 @@
-import { ShoppingCart } from "lucide-react";
-function Carts() {
-  return (
-    <div className="flex">
-      <div
-        className="
-          flex-1
-          mt-10
-          bg-transparent 
-        "
-      >
-        {/* Header */}
-        <div
-          className="
-            bg-white
-            dark:bg-slate-900
-            shadow-sm
-            mb-8
-            relative overflow-hidden rounded-xl border border-cyan-200 dark:border-cyan-900 bg-gradient-to-r from-white to-cyan-200/20 dark:from-gray-900 dark:to-cyan-950/30 p-8 max-sm:flex-col max-sm:items-start max-sm:gap-8
-          "
-        >
-          <p className="text-xs uppercase tracking-[2px] text-cyan-800 dark:text-cyan-300 pl-0.5">
-            Carts
-          </p>
+import { useEffect, useState } from "react";
+import { getAdminOrders } from "../services/ordersService"; 
 
-          <h1 className="font-bold text-xl sm:text-3xl text-cyan-950 dark:text-white">
-            Cart Overview
-          </h1>
+export default function Carts() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-          <p className="text-slate-500 dark:text-slate-400 text-sm">
-            View all shopping carts returned from the API, including customer
-            information, products, quantities, and total items.
-          </p>
-        </div>
+  useEffect(() => {
+    fetchProductsFromOrders();
+  }, []);
 
-        {/* Empty State */}
-        <div
-          className="
-        flex
-        flex-col
-        items-center
-        justify-center
-        gap-4
-        pt-15 pb-15
-        rounded-3xl
-        border-2
-        border-dashed
-        border-slate-300
-        dark:border-slate-700
-        bg-white
-        dark:bg-slate-900
-        shadow-sm
-      "
-        >
-          <div
-            className="
-          w-20
-          h-20
-          rounded-full
-          bg-cyan-100
-          dark:bg-cyan-500/10
-          flex
-          items-center
-          justify-center
-        "
-          >
-            <ShoppingCart
-              size={36}
-              className="text-cyan-600 dark:text-cyan-400"
-            />
-          </div>
+  const BROKEN_IMAGE_IDS = [
+    "wd9kcp806dse2udbrboz",
+    "m2zumysh4e9nalqkti6m",
+    "l65bjc0ju8qb4ijzbwjf",
+    "ndtazsbyvfjzraienq4b"
+  ];
 
-          <h2 className="text-xl font-semibold text-slate-800 dark:text-white">
-            No Carts Found
-          </h2>
+  const formatImageUrl = (img) => {
+    if (!img || img === "https://e-commerce-api-3wara.vercel.app") return "";
 
-          <p className="text-center text-slate-500 dark:text-slate-400 max-w-md">
-            There are currently no shopping carts available from the API. Once data
-            becomes available, it will appear here automatically.
-          </p>
-        </div>
+    const isBroken = BROKEN_IMAGE_IDS.some((brokenId) => img.includes(brokenId));
+    if (isBroken) return "";
+
+    if (img.startsWith("http")) return img;
+    return `https://res.cloudinary.com/dvaos6oyh/image/upload/${img}`;
+  };
+
+  const fetchProductsFromOrders = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const data = await getAdminOrders(1, 100);
+      let ordersList = data.orders || data.data || (Array.isArray(data) ? data : []);
+      
+      let extractedProducts = [];
+      ordersList.forEach(order => {
+        const items = order.cartItems || order.items || order.orderItems || [];
+        items.forEach(item => {
+          if (item.product || item.title || item.name) {
+            const rawImg = item.product?.imageCover || item.product?.image || item.image;
+            const validImgUrl = formatImageUrl(rawImg);
+
+            if (validImgUrl) {
+              extractedProducts.push({
+                id: item.product?._id || item._id || Math.random(),
+                title: item.product?.title || item.product?.name || item.name || "Product Name",
+                image: validImgUrl,
+                price: item.price || item.product?.price || 100,
+              });
+            }
+          }
+        });
+      });
+
+      setProducts(extractedProducts);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to load products data");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="p-12 text-center text-slate-500 font-bold flex justify-center items-center min-h-[400px]">
+        Loading real products...
       </div>
+    );
+  }
+
+  if (error) {
+    return <div className="p-12 text-center text-rose-500 font-bold">{error}</div>;
+  }
+
+  const topCards = products.slice(0, 5);
+  const gridCards = products.length > 5 ? products.slice(5) : products;
+
+  return (
+    <div className="space-y-6 p-4 md:p-6 bg-slate-50/50 min-h-screen select-none font-sans">
+      
+      {topCards.length > 0 && (
+        <div className="bg-white rounded-2xl border border-slate-300 p-4 shadow-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 divide-x divide-slate-300">
+            {topCards.map((item, idx) => (
+              <div key={item.id || idx} className="p-4 flex flex-col items-center text-center group cursor-pointer hover:bg-slate-50 rounded-xl transition-colors">
+                <div className="w-24 h-24 mb-3 flex items-center justify-center p-2 bg-slate-50 rounded-lg">
+                  <img 
+                    src={item.image} 
+                    alt={item.title} 
+                    className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                
+                <p className="text-xs font-bold text-slate-500 truncate w-full mb-1">
+                  {item.title}
+                </p>
+                
+                <span className="text-xs font-semibold text-slate-400 mt-1">
+                  {item.price} EGP
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {gridCards.length > 0 && (
+        <div className="bg-white rounded-2xl border border-slate-300 overflow-hidden shadow-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 divide-x divide-y divide-slate-300">
+            {gridCards.map((item, idx) => (
+              <div 
+                key={item.id || idx} 
+                className="p-5 flex items-center justify-between gap-3 hover:bg-slate-50 transition-colors cursor-pointer group"
+              >
+                <div className="space-y-1.5 min-w-0 flex-1">
+                  <p className="text-xs font-bold text-slate-500 truncate leading-snug">
+                    {item.title}
+                  </p>
+                  
+                  <p className="text-xs font-semibold text-slate-400">
+                    {item.price} EGP
+                  </p>
+                </div>
+
+                <div className="w-16 h-16 flex items-center justify-center flex-shrink-0 p-1 bg-slate-50 rounded-lg">
+                  <img 
+                    src={item.image} 
+                    alt={item.title} 
+                    className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
-
-export default Carts;
