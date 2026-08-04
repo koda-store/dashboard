@@ -28,7 +28,10 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
 
     try {
+      // const data = await login(email, password);
       const data = await login(email, password);
+
+console.log(data);
 
       localStorage.setItem("dashboard-token", data.token);
       setUser(data.user);
@@ -47,13 +50,19 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+ const logoutUser = () => {
+  localStorage.removeItem("dashboard-token");
+  setUser(null);
+};
+
   return (
     <AuthContext.Provider
       value={{
-        user,
-        loading,
-        loginUser,
-      }}
+      user,
+      loading,
+      loginUser,
+      logoutUser,
+    }}
     >
       {children}
     </AuthContext.Provider>

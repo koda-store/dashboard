@@ -1,25 +1,25 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import ThemeContext from "./context/ThemeContext";
 
 import App from "./App.jsx";
 import "./index.css";
 
+import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import { SidebarProvider } from "./context/SidebarContext";
+import { Provider } from "react-redux";
+import { Store } from "./redux/Store.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <BrowserRouter>
+  <BrowserRouter>
+    <ThemeProvider>
       <AuthProvider>
         <SidebarProvider>
-           <ThemeContext>
-          <App/>
-           </ThemeContext>
-           </SidebarProvider>
-        
+          <Provider store={Store}>
+            <App />
+          </Provider>
+        </SidebarProvider>
       </AuthProvider>
-    </BrowserRouter>
-  </StrictMode>
+    </ThemeProvider>
+  </BrowserRouter>
 );

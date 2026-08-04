@@ -1,23 +1,45 @@
+import { createContext, useContext, useEffect, useState } from "react";
 
-import { useState, useEffect } from "react";
-import { Theme } from "../components/Navbar/Context.jsx";
+const ThemeContext = createContext();
 
-const ThemeContext = ({ children }) => {
-  const [theme, setTheme] = useState("light");
-
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  };
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") || "dark"
+  );
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-  }, [theme]);
+  localStorage.setItem("theme", theme);
+
+  const prefersDark = window.matchMedia(
+    "(prefers-color-scheme: dark)"
+  ).matches;
+
+  const activeTheme =
+    theme === "system"
+      ? prefersDark
+        ? "dark"
+        : "light"
+      : theme;
+
+    if (activeTheme === "dark") {
+        document.body.classList.add("dark");
+        document.documentElement.classList.add("dark");
+    } else {
+        document.body.classList.remove("dark");
+        document.documentElement.classList.remove("dark");
+    }
+    }, [theme]);
 
   return (
-    <Theme.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider
+      value={{
+        theme,
+        setTheme,
+      }}
+    >
       {children}
-    </Theme.Provider>
+    </ThemeContext.Provider>
   );
-};
+}
 
-export default ThemeContext;
+export const useTheme = () => useContext(ThemeContext);

@@ -2,12 +2,15 @@ import React from "react";
 import Dashboard from "../components/Dashboard/Dashboard";
 import Sidebar from "../components/ui/SideBar";
 import NavBar from "../components/ui/NavBar";
+import { useEffect } from "react";
+
 function Home() {
+    useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
-    <div className="flex bg-sky-50">
-      <Sidebar />
-      <NavBar />
-      <div className="flex-1 p-8 pt-20 md:pt-8">
+    <div className="flex bg-transparent">
+      <div className="flex-1">
           <Dashboard />
       </div>
     </div>
