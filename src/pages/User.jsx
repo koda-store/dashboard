@@ -1,5 +1,3 @@
-
-
 import { api } from "../api/axios";
 import React, { useState, useEffect } from "react";
 import {
@@ -115,9 +113,7 @@ function User() {
       await api.patch(`/users/${id}`, { role: newRole });
 
       setUsers((prev) =>
-        prev.map((u) =>
-          (u._id || u.id) === id ? { ...u, role: newRole } : u
-        )
+        prev.map((u) => ((u._id || u.id) === id ? { ...u, role: newRole } : u)),
       );
       toast.success("Role updated successfully");
     } catch (err) {
@@ -142,8 +138,10 @@ function User() {
 
       setUsers((prev) =>
         prev.map((u) =>
-          (u._id || u.id) === id ? { ...u, ...(updatedUser || editingUser) } : u
-        )
+          (u._id || u.id) === id
+            ? { ...u, ...(updatedUser || editingUser) }
+            : u,
+        ),
       );
 
       setShowEditModal(false);
@@ -180,7 +178,9 @@ function User() {
           <span className="text-[11px] font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase">
             User Management
           </span>
-          <h1 className="text-xl font-bold mt-0.5 text-slate-900 dark:text-white">Manage Users</h1>
+          <h1 className="text-xl font-bold mt-0.5 text-slate-900 dark:text-white">
+            Manage Users
+          </h1>
         </div>
 
         <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
@@ -218,8 +218,12 @@ function User() {
                 <FiUserPlus size={20} />
               </div>
               <div>
-                <h2 className="text-sm font-bold text-slate-800 dark:text-white tracking-tight">Create New User</h2>
-                <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">Fill in the details below to add a new user</p>
+                <h2 className="text-sm font-bold text-slate-800 dark:text-white tracking-tight">
+                  Create New User
+                </h2>
+                <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">
+                  Fill in the details below to add a new user
+                </p>
               </div>
             </div>
             <button
@@ -266,7 +270,9 @@ function User() {
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Phone</label>
+              <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                Phone
+              </label>
               <input
                 type="text"
                 value={phone}
@@ -299,11 +305,15 @@ function User() {
         </form>
       )}
 
-     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div className="bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-700 p-4 rounded-xl flex justify-between items-center shadow-md hover:shadow-lg transition-shadow">
           <div>
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">Total Users</p>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mt-0.5">{users.length}</h3>
+            <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">
+              Total Users
+            </p>
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white mt-0.5">
+              {users.length}
+            </h3>
           </div>
           <div className="p-2.5 bg-cyan-50 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 rounded-xl">
             <FiUsers size={22} />
@@ -311,7 +321,9 @@ function User() {
         </div>
         <div className="bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-700 p-4 rounded-xl flex justify-between items-center shadow-md hover:shadow-lg transition-shadow">
           <div>
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">Admins</p>
+            <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">
+              Admins
+            </p>
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mt-0.5">
               {users.filter((u) => u.role === "admin").length}
             </h3>
@@ -322,7 +334,9 @@ function User() {
         </div>
         <div className="bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-700 p-4 rounded-xl flex justify-between items-center shadow-md hover:shadow-lg transition-shadow">
           <div>
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">Customers</p>
+            <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">
+              Customers
+            </p>
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mt-0.5">
               {users.filter((u) => u.role === "customer").length}
             </h3>
@@ -333,7 +347,9 @@ function User() {
         </div>
         <div className="bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-700 p-4 rounded-xl flex justify-between items-center shadow-md hover:shadow-lg transition-shadow">
           <div>
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">Verified</p>
+            <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">
+              Verified
+            </p>
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mt-0.5">
               {users.filter((u) => u.isVerified).length}
             </h3>
@@ -344,7 +360,7 @@ function User() {
         </div>
       </div>
 
-  <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-md mb-8">
+      <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-md mb-8">
         <div className="w-full overflow-x-auto">
           {loading ? (
             <div className="col-span-full flex flex-col items-center justify-center py-20 gap-4">
@@ -365,8 +381,12 @@ function User() {
           ) : error ? (
             <div className="w-full flex flex-col items-center justify-center p-10">
               <div className="bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/30 p-5 rounded-2xl max-w-sm text-center">
-                <p className="text-xs font-bold text-red-500 dark:text-red-400">Sorry, could not connect to the API</p>
-                <p className="text-[11px] text-red-400 dark:text-red-400/80 mt-1">{error}</p>
+                <p className="text-xs font-bold text-red-500 dark:text-red-400">
+                  Sorry, could not connect to the API
+                </p>
+                <p className="text-[11px] text-red-400 dark:text-red-400/80 mt-1">
+                  {error}
+                </p>
                 <button
                   onClick={fetchUsers}
                   className="mt-3 px-4 py-1.5 bg-cyan-500 dark:bg-cyan-600 text-white text-xs font-bold rounded-xl"
@@ -376,7 +396,7 @@ function User() {
               </div>
             </div>
           ) : (
-             <table className="w-full min-w-max text-left border-collapse">
+            <table className="w-full min-w-max text-left border-collapse">
               <thead>
                 <tr className="border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-[11px] font-semibold uppercase bg-slate-50/80 dark:bg-slate-800/70">
                   <th className="px-6 py-3.5">User</th>
@@ -394,7 +414,11 @@ function User() {
                     <td className="px-6 py-3 flex items-center gap-3">
                       <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 shrink-0 overflow-hidden font-semibold uppercase text-xs">
                         {user.avatar ? (
-                          <img src={user.avatar} alt="avatar" className="w-full h-full object-cover" />
+                          <img
+                            src={user.avatar}
+                            alt="avatar"
+                            className="w-full h-full object-cover"
+                          />
                         ) : (
                           (user.username || "?").charAt(0)
                         )}
@@ -403,7 +427,9 @@ function User() {
                         <h4 className="font-semibold text-slate-800 dark:text-white capitalize">
                           {user.username}
                         </h4>
-                        <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">{user.email}</p>
+                        <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">
+                          {user.email}
+                        </p>
                       </div>
                     </td>
                     <td className="px-6 py-3">
@@ -417,7 +443,7 @@ function User() {
                         {user.role}
                       </span>
                     </td>
-                    <td className="px-3 md:px-4 lg:px-6 py-3" >
+                    <td className="px-3 md:px-4 lg:px-6 py-3">
                       {user.isVerified ? (
                         <span className="text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1">
                           <FiCheck /> Verified
@@ -460,7 +486,10 @@ function User() {
                 ))}
                 {filteredUsers.length === 0 && (
                   <tr>
-                    <td colSpan={4} className="px-6 py-8 text-center text-slate-400 dark:text-slate-500 text-xs">
+                    <td
+                      colSpan={4}
+                      className="px-6 py-8 text-center text-slate-400 dark:text-slate-500 text-xs"
+                    >
                       No matching users found
                     </td>
                   </tr>
@@ -475,7 +504,9 @@ function User() {
         <div className="fixed inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 w-full max-w-md rounded-2xl p-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-150">
             <div className="flex justify-between items-center mb-5">
-              <h3 className="text-sm font-bold text-slate-800 dark:text-white">Edit User</h3>
+              <h3 className="text-sm font-bold text-slate-800 dark:text-white">
+                Edit User
+              </h3>
               <button
                 type="button"
                 onClick={() => setShowEditModal(false)}
@@ -493,7 +524,9 @@ function User() {
                 <input
                   type="text"
                   value={editingUser.username || ""}
-                  onChange={(e) => setEditingUser({ ...editingUser, username: e.target.value })}
+                  onChange={(e) =>
+                    setEditingUser({ ...editingUser, username: e.target.value })
+                  }
                   className="w-full px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white text-xs focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400"
                 />
               </div>
@@ -504,7 +537,9 @@ function User() {
                 <input
                   type="text"
                   value={editingUser.phone || ""}
-                  onChange={(e) => setEditingUser({ ...editingUser, phone: e.target.value })}
+                  onChange={(e) =>
+                    setEditingUser({ ...editingUser, phone: e.target.value })
+                  }
                   className="w-full px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white text-xs focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400"
                 />
               </div>
@@ -516,7 +551,9 @@ function User() {
                   type="text"
                   placeholder="https://cdn-icons-png..."
                   value={editingUser.avatar || ""}
-                  onChange={(e) => setEditingUser({ ...editingUser, avatar: e.target.value })}
+                  onChange={(e) =>
+                    setEditingUser({ ...editingUser, avatar: e.target.value })
+                  }
                   className="w-full px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white text-xs focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400"
                 />
               </div>
