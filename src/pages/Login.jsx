@@ -1,12 +1,13 @@
 import React from "react";
-import { Mail, Lock, ShoppingBag } from "lucide-react";
+// import { Mail, Lock, ShoppingBag } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Mail, Lock, ShoppingBag, Eye, EyeOff } from "lucide-react";
 function Login() {
   const { loginUser, loading } = useAuth();
-
+const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -114,7 +115,7 @@ function Login() {
 
               </div>
 
-              <div>
+              {/* <div>
 
                 <label className="text-gray-700 dark:text-gray-300 text-sm transition-colors">
                   Password
@@ -134,8 +135,33 @@ function Login() {
 
                 </div>
 
-              </div>
+              </div> */}
+<div>
+  <label className="text-gray-700 dark:text-gray-300 text-sm transition-colors">
+    Password
+  </label>
 
+  <div className="mt-2 flex items-center bg-gray-100 dark:bg-[#1D2740] rounded-xl px-4 transition-colors">
+    <Lock className="text-gray-500 dark:text-gray-400" size={18} />
+
+    <input
+      type={showPassword ? "text" : "password"}
+      placeholder="Enter your password"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      className="w-full bg-transparent py-4 px-3 text-black dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 outline-none"
+    />
+
+    <button
+      type="button"
+      onClick={() => setShowPassword((prev) => !prev)}
+      className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+      tabIndex={-1}
+    >
+      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+    </button>
+  </div>
+</div>
               <button
                 type="submit"
                 disabled={loading}
