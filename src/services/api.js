@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "/api",
+
+  baseURL: "https://e-commerce-api-3wara.vercel.app", 
 });
 
 api.interceptors.request.use((config) => {
@@ -13,3 +14,4 @@ api.interceptors.request.use((config) => {
 });
 
 export default api;
+
