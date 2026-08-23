@@ -67,8 +67,22 @@ export default function Carts() {
 
   if (loading) {
     return (
-      <div className="p-12 text-center text-slate-500 dark:text-slate-400 font-bold flex justify-center items-center min-h-[400px] bg-slate-50/50 dark:bg-slate-950">
-        Loading real products...
+      <div className="p-12 text-center text-slate-500 font-bold flex justify-center items-center min-h-[400px]">
+       <div className="col-span-full flex flex-col items-center justify-center py-20 gap-4">
+              <div className="relative w-20 h-20">
+                <div className="absolute inset-0 rounded-full border-4 border-slate-200 dark:border-slate-700"></div>
+                <div className="absolute inset-0 rounded-full border-4 border-t-cyan-500 border-transparent animate-spin"></div>
+                <div className="absolute inset-3 rounded-full bg-cyan-500"></div>
+              </div>
+
+              <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
+                Loading...
+              </h2>
+
+              <p className="text-gray-500 dark:text-slate-400">
+                Please wait while we fetch the data.
+              </p>
+            </div>
       </div>
     );
   }

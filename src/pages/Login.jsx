@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Mail, Lock, ShoppingBag } from "lucide-react";
+import { Mail, Lock, ShoppingBag, Eye, EyeOff } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
   const { loginUser, loading } = useAuth();
-
+  const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -31,14 +31,15 @@ function Login() {
     }
 
     console.log("Login Success");
-    
+
     navigate("/orders");
   };
 
   return (
-    <div className="min-h-screen bg-[#0B1120] flex items-center justify-center px-4 py-5">
-      <div className="w-full max-w-6xl bg-[#141B2D] rounded-3xl shadow-2xl grid grid-cols-1 lg:grid-cols-2">
-       
+    <div className="min-h-screen bg-[#F5F7FA] dark:bg-[#0B1120] flex items-center justify-center px-4 py-5 transition-colors duration-300">
+      <div className="w-full max-w-6xl bg-white dark:bg-[#141B2D] rounded-3xl shadow-2xl grid grid-cols-1 lg:grid-cols-2 transition-colors duration-300">
+
+        {/* Left Side */}
         <div className="hidden lg:flex flex-col justify-center bg-gradient-to-br from-blue-600 to-cyan-400 px-12 py-10 text-white">
           <div className="flex items-center gap-2 mb-8">
             <ShoppingBag size={26} />
@@ -72,48 +73,64 @@ function Login() {
           <div className="w-full max-w-md">
             <div className="flex justify-center mb-6">
               <img
-                src="src/KodaLogo2-D3eRgjLV.png"
+                src="src/services/KodaLogo2-D3eRgjLV.png"
                 alt="logo"
                 className="w-48"
               />
             </div>
 
-            <h2 className="text-white text-5xl font-bold text-center">
+            <h2 className="text-[#111827] dark:text-white text-5xl font-bold text-center transition-colors">
               Welcome Back
             </h2>
 
-            <p className="text-gray-400 mt-2 mb-7 text-center text-lg">
+            <p className="text-gray-600 dark:text-gray-400 mt-2 mb-7 text-center text-lg transition-colors">
               Sign in to your admin dashboard
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="text-gray-300 text-sm">Email Address</label>
-                <div className="mt-2 flex items-center bg-[#1D2740] rounded-xl px-4">
-                  <Mail className="text-gray-400" size={18} />
+                <label className="text-gray-700 dark:text-gray-300 text-sm transition-colors">
+                  Email Address
+                </label>
+
+                <div className="mt-2 flex items-center bg-gray-100 dark:bg-[#1D2740] rounded-xl px-4 transition-colors">
+                  <Mail className="text-gray-500 dark:text-gray-400" size={18} />
                   <input
                     type="email"
                     placeholder="Enter your email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-transparent py-4 px-3 text-white outline-none"
+                    className="w-full bg-transparent py-4 px-3 text-black dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 outline-none"
                     required
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-gray-300 text-sm">Password</label>
-                <div className="mt-2 flex items-center bg-[#1D2740] rounded-xl px-4">
-                  <Lock className="text-gray-400" size={18} />
+                <label className="text-gray-700 dark:text-gray-300 text-sm transition-colors">
+                  Password
+                </label>
+
+                <div className="mt-2 flex items-center bg-gray-100 dark:bg-[#1D2740] rounded-xl px-4 transition-colors">
+                  <Lock className="text-gray-500 dark:text-gray-400" size={18} />
+
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full bg-transparent py-4 px-3 text-white outline-none"
+                    className="w-full bg-transparent py-4 px-3 text-black dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 outline-none"
                     required
                   />
+
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
                 </div>
               </div>
 
@@ -127,15 +144,17 @@ function Login() {
             </form>
 
             {error && (
-              <p className="text-red-500 mt-3 text-center text-sm font-medium">
+              <p className="text-red-500 dark:text-red-400 mt-3 text-center text-sm font-medium">
                 {error}
               </p>
             )}
 
             <div className="flex items-center my-6">
-              <div className="flex-1 h-px bg-gray-700"></div>
-              <span className="px-4 text-gray-400">OR</span>
-              <div className="flex-1 h-px bg-gray-700"></div>
+              <div className="flex-1 h-px bg-gray-300 dark:bg-gray-700 transition-colors"></div>
+              <span className="px-4 text-gray-500 dark:text-gray-400 transition-colors">
+                OR
+              </span>
+              <div className="flex-1 h-px bg-gray-300 dark:bg-gray-700 transition-colors"></div>
             </div>
 
             <button
@@ -144,13 +163,13 @@ function Login() {
                 window.location.href =
                   "https://e-commerce-api-3wara.vercel.app/auth/google";
               }}
-              className="w-full py-4 rounded-xl bg-[#1D2740] hover:bg-[#263352] transition flex items-center justify-center gap-3 text-white"
+              className="w-full py-4 rounded-xl bg-gray-100 dark:bg-[#1D2740] hover:bg-gray-200 dark:hover:bg-[#263352] transition flex items-center justify-center gap-3 text-gray-900 dark:text-white"
             >
               <FcGoogle size={24} />
               <span>Continue with Google</span>
             </button>
 
-            <p className="text-center text-gray-500 text-sm mt-6">
+            <p className="text-center text-gray-500 dark:text-gray-400 text-sm mt-6 transition-colors">
               Secure Admin Access
             </p>
           </div>

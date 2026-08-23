@@ -149,9 +149,29 @@ export default function Orders() {
     }
   }, [filteredOrders.length, totalPages, page]);
 
-  if (loading) return <div className="p-12 text-center text-slate-400 dark:text-slate-500 font-bold flex justify-center items-center gap-2 min-h-screen bg-slate-50 dark:bg-slate-950">جاري تحميل الطلبات...</div>;
-  if (error) return <div className="p-12 text-center text-rose-500 font-bold min-h-screen bg-slate-50 dark:bg-slate-950">{error}</div>;
+  if (loading) return   <div className="col-span-full flex flex-col items-center justify-center py-20 gap-4">
+              <div className="relative w-20 h-20">
+                <div className="absolute inset-0 rounded-full border-4 border-slate-200 dark:border-slate-700"></div>
+                <div className="absolute inset-0 rounded-full border-4 border-t-cyan-500 border-transparent animate-spin"></div>
+                <div className="absolute inset-3 rounded-full bg-cyan-500"></div>
+              </div>
 
+              <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
+                Loading...
+              </h2>
+
+              <p className="text-gray-500 dark:text-slate-400">
+                Please wait while we fetch the data.
+              </p>
+            </div>
+              // if (error) return <div className="p-12 text-center text-rose-500 font-bold">{error}</div>;
+  if (error) {
+    return (
+      <div className="p-12 text-center text-rose-500 font-bold min-h-screen bg-slate-50 dark:bg-slate-950">
+        {error}
+      </div>
+    );
+  }
   return (
     <div className="space-y-6 text-slate-700 dark:text-slate-200 select-none relative p-4 md:p-6 bg-slate-50/50 dark:bg-slate-950 min-h-screen transition-colors duration-200">
       <Toaster position="top-center" />

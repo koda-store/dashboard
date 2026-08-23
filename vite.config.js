@@ -5,8 +5,8 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
-    port: 5174,        
-    strictPort: true,  
+    port: 5174,
+    strictPort: true,
     proxy: {
       '/api': {
         target: 'https://e-commerce-api-3wara.vercel.app',
@@ -16,5 +16,3 @@ export default defineConfig({
     },
   },
 })
-
-
