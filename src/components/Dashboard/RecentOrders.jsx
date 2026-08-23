@@ -49,16 +49,16 @@ function RecentOrders() {
         return "bg-emerald-100 text-emerald-700 dark:bg-emerald-800/20 dark:text-emerald-500";
 
       case "cancelled":
-        return "bg-red-100 text-red-700 dark:bg-red-800/20 dark:text-red-500";
+        return "bg-red-100 text-red-700 dark:bg-red-800 dark:text-red-500";
 
       default:
-        return "bg-gray-100 text-gray-700 dark:bg-gray-800/20 dark:text-gray-500";
+        return "bg-slate-200 text-gray-900 dark:bg-slate-400 dark:text-slate-900";
     }
   };
   if (error) {
     return (
-      <div className="bg-white  dark:bg-slate-900 dark:border-red-500/20 rounded-2xl shadow-xl border border-red-200 p-6">
-        <p className="text-center text-red-500">{error}</p>
+     <div className="bg-white rounded-2xl shadow-xl border border-red-200 p-6 dark:bg-slate-900">  
+           <p className="text-center text-red-500">{error}</p>
       </div>
     );
   }
@@ -73,22 +73,21 @@ function RecentOrders() {
     );
   }
   return (
-    <div className="w-full bg-white rounded-2xl shadow-xl border border-blue-200/50 dark:border-blue-200/10 dark:bg-slate-900 p-6">
-      <div className="flex  items-center justify-between mb-5">
+    <div className="w-full bg-white rounded-2xl shadow-xl border border-blue-200 p-6 dark:border-slate-700 dark:bg-slate-900 ">      <div className="flex  items-center justify-between mb-5">
         <div>
-          <h3 className="text-xl font-semibold">Recent Orders</h3>
-          <p className="text-gray-600 dark:text-gray-400">Latest customer activity</p>
-        </div>
+    <h3 className="text-xl font-semibold">Recent Orders</h3>
+    <p className="text-gray-600 dark:text-gray-400">Latest customer activity</p>
+  </div>
 
-        <span className="px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-800/20 text-cyan-700 dark:text-cyan-500 text-sm font-medium">
-          {orders.length} orders
-        </span>
-      </div>
+  <span className="px-3 py-1 rounded-full bg-cyan-100 text-cyan-700 text-sm font-medium dark:text-cyan-500 dark:bg-cyan-800/20 ">
+    {orders.length} orders
+  </span>
+</div>
       {orders.map((order) => (
         <div
           key={order._id}
-          className="flex justify-between items-center bg-blue-50 dark:bg-blue-800/20 border border-blue-200 dark:border-blue-900 p-4 rounded-xl shadow-sm my-4 hover:shadow-md">
-          <div>
+ className="flex justify-between items-center bg-blue-50 p-4 rounded-xl shadow-sm my-4 border border-slate-200 hover:shadow-md transition-all duration-300 dark:bg-slate-800 dark:border-slate-700">    
+       <div>
             <h5 className="font-sm dark:text-white">
               {order.user?.username || "Customer"}
             </h5>

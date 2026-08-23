@@ -49,14 +49,12 @@ const [error, setError] = useState("");
 };
 if (error) {
   return (
-    <div className="bg-white dark:bg-slate-900 dark:border-red-500/20 rounded-2xl shadow-xl border border-red-200 p-6">
-        <p className="text-center text-red-500">{error}</p>
+ <div className="bg-white rounded-2xl shadow-xl border border-red-200 p-6 dark:bg-slate-900 dark:border-red-200/50 ">        <p className="text-center text-red-500">{error}</p>
       </div>
   );
 }
   return (
-<div className="bg-white dark:border-blue-200/10 dark:bg-slate-900 my-2 h-full rounded-2xl shadow-xl border border-blue-200/50 p-4">
-  
+<div className="bg-white my-2 h-full rounded-2xl shadow-xl border border-blue-200 p-4 dark:border-slate-700 dark:bg-slate-900">  
   <h1 className="tracking-[0.35em] uppercase text-lg  text-cyan-400 py-4 ">Top products</h1>
   
   <h3 className="text-gl font-semibold  mb-5 dark:text-white">Best Sellers</h3>
@@ -65,8 +63,7 @@ if (error) {
     {topProducts.map((product) => (
       <div
         key={product.id}
-        className="flex items-center bg-blue-50 dark:bg-blue-800/20 dark:border-blue-900 p-6 border  rounded-xl justify-between border-b border-blue-200 pb-4  "
-      >
+   className="flex items-center bg-blue-50 p-6 border  rounded-xl justify-between border-b border-gray-100 pb-4 dark:border-slate-700 dark:bg-slate-800  "      >
         <div className="flex items-center  gap-4">
           <img
             src={product.image}
@@ -79,13 +76,13 @@ if (error) {
               {product.name}
             </h5>
 
-            <p className="text-sm text-gray-300 dar:text-gray-400 mt-1">
+            <p className="text-sm text-gray-500 dar:text-gray-400 mt-1">
               {product.sold} units sold
             </p>
           </div>
         </div>
 
-        <span className="font-semibold text-gray-800 dark:text-gray-300">
+        <span className="font-semibold text-gray-700 dark:text-gray-300">
          ${product.price?.toFixed(2) || "0.00"}
         </span>
       </div>
