@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { getAdminOrders } from "../services/ordersService"; 
 
@@ -87,21 +88,28 @@ export default function Carts() {
   }
 
   if (error) {
-    return <div className="p-12 text-center text-rose-500 font-bold">{error}</div>;
+    return (
+      <div className="p-12 text-center text-rose-500 font-bold min-h-[400px] bg-slate-50/50 dark:bg-slate-950">
+        {error}
+      </div>
+    );
   }
 
   const topCards = products.slice(0, 5);
   const gridCards = products.length > 5 ? products.slice(5) : products;
 
   return (
-    <div className="space-y-6 p-4 md:p-6 bg-slate-50/50 min-h-screen select-none font-sans">
+    <div className="space-y-6 p-4 md:p-6 bg-slate-50/50 dark:bg-slate-950 min-h-screen select-none font-sans transition-colors duration-200">
       
       {topCards.length > 0 && (
-        <div className="bg-white rounded-2xl border border-slate-300 p-4 shadow-xs">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 divide-x divide-slate-300">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 shadow-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-0 md:divide-x divide-slate-200 dark:divide-slate-800">
             {topCards.map((item, idx) => (
-              <div key={item.id || idx} className="p-4 flex flex-col items-center text-center group cursor-pointer hover:bg-slate-50 rounded-xl transition-colors">
-                <div className="w-24 h-24 mb-3 flex items-center justify-center p-2 bg-slate-50 rounded-lg">
+              <div 
+                key={item.id || idx} 
+                className="p-3 md:p-4 flex flex-col items-center text-center group cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-colors"
+              >
+                <div className="w-20 h-20 sm:w-24 sm:h-24 mb-3 flex items-center justify-center p-2 bg-slate-50 dark:bg-slate-800/80 rounded-xl border border-slate-100 dark:border-slate-800">
                   <img 
                     src={item.image} 
                     alt={item.title} 
@@ -109,12 +117,12 @@ export default function Carts() {
                   />
                 </div>
                 
-                <p className="text-xs font-bold text-slate-500 truncate w-full mb-1">
+                <p className="text-xs font-bold text-slate-700 dark:text-slate-200 truncate w-full mb-1">
                   {item.title}
                 </p>
                 
-                <span className="text-xs font-semibold text-slate-400 mt-1">
-                  {item.price} EGP
+                <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 mt-0.5">
+                  {item.price} <span className="text-[10px]">EGP</span>
                 </span>
               </div>
             ))}
@@ -123,24 +131,24 @@ export default function Carts() {
       )}
 
       {gridCards.length > 0 && (
-        <div className="bg-white rounded-2xl border border-slate-300 overflow-hidden shadow-xs">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 divide-x divide-y divide-slate-300">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-200 dark:divide-slate-800">
             {gridCards.map((item, idx) => (
               <div 
                 key={item.id || idx} 
-                className="p-5 flex items-center justify-between gap-3 hover:bg-slate-50 transition-colors cursor-pointer group"
+                className="p-4 sm:p-5 flex items-center justify-between gap-3 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer group border-b border-slate-200 dark:border-slate-800 sm:border-b-0"
               >
                 <div className="space-y-1.5 min-w-0 flex-1">
-                  <p className="text-xs font-bold text-slate-500 truncate leading-snug">
+                  <p className="text-xs font-bold text-slate-700 dark:text-slate-200 truncate leading-snug">
                     {item.title}
                   </p>
                   
-                  <p className="text-xs font-semibold text-slate-400">
-                    {item.price} EGP
+                  <p className="text-xs font-semibold text-slate-400 dark:text-slate-500">
+                    {item.price} <span className="text-[10px]">EGP</span>
                   </p>
                 </div>
 
-                <div className="w-16 h-16 flex items-center justify-center flex-shrink-0 p-1 bg-slate-50 rounded-lg">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center flex-shrink-0 p-1.5 bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-800 rounded-xl">
                   <img 
                     src={item.image} 
                     alt={item.title} 
